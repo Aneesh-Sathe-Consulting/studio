@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Aneesh Sathe">
+<meta name="dcterms.date" content="2024-04-30">
+
+<title>Auto Creating Knowledge Graphs from PDF files using LLMs – studio</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-d1b12f2568ecbe55642fee6aa00bd082.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-b2511bcbb01c2159fd96a78deb42ffd9.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">studio</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://aneeshsathe.com"> <i class="bi bi-wordpress" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://linkedin.com/in/aneeshsathe"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/aneeshsathe"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Auto Creating Knowledge Graphs from PDF files using LLMs</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">AI-agents</div>
+                <div class="quarto-category">AI</div>
+                <div class="quarto-category">analysis</div>
+                <div class="quarto-category">FHIR</div>
+                <div class="quarto-category">KnowledgeGraphs</div>
+                <div class="quarto-category">LLMs</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Aneesh Sathe </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">April 30, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="auto-creating-knowledge-graphs-from-pdf-files-using-llms" class="level1">
+<h1>Auto Creating Knowledge Graphs from PDF files using LLMs</h1>
+<p>Using systems like RAG and Knowledge graphs to serve as a source of truth for LLMs is extremely powerful. However, the creation of knowledge graphs themselves remained a tedious task. Here we explore automatically creating a knowledge graph from a wikipedia page about <a href="https://en.wikipedia.org/wiki/Knowledge_graph">Knowledge Graphs</a>.</p>
+<p>This approach will make it easy for anyone to not only convert relevant documents and even notes into a knowledge graph but also chat with it. Such a system can be extremely powerful for experts who rely on specialised knowledge but fallible human memory.</p>
+<p>Refs: - <a href="https://github.com/neo4j-labs/llm-graph-builder">Neo4j’s Knowledge Graph Builder App</a> - <a href="https://bratanic-tomaz.medium.com/constructing-knowledge-graphs-from-text-using-openai-functions-096a6d010c17">Constructing knowledge graphs from text using OpenAI functions</a> - <a href="https://neo4j.com/developer-blog/knowledge-graphs-llms-multi-hop-question-answering/">Knowledge Graphs &amp; LLMs: Multi-Hop Question Answering</a></p>
+<section id="imports" class="level2">
+<h2 class="anchored" data-anchor-id="imports">Imports</h2>
+<div id="a6323257" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># OS-level</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Langchain</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.graphs <span class="im">import</span> Neo4jGraph</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain_community.graphs.graph_document <span class="im">import</span> (</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    Node <span class="im">as</span> BaseNode,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    Relationship <span class="im">as</span> BaseRelationship,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    GraphDocument,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.schema <span class="im">import</span> Document</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> List, Dict, Any, Optional</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.pydantic_v1 <span class="im">import</span> Field, BaseModel</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.chains.openai_functions <span class="im">import</span> (</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    create_openai_fn_chain,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    create_structured_output_chain,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain_openai <span class="im">import</span> ChatOpenAI</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.prompts <span class="im">import</span> ChatPromptTemplate</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.text_splitter <span class="im">import</span> TokenTextSplitter</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain_community.document_loaders <span class="im">import</span> PyPDFLoader</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="knowledge-graph-database-setup" class="level2">
+<h2 class="anchored" data-anchor-id="knowledge-graph-database-setup">Knowledge Graph Database setup</h2>
+<p>The details have been redacted. Neo4j <a href="https://neo4j.com/cloud/platform/aura-graph-database/">offers</a> a free hosting of an knowledge graph instance and local options are also available.</p>
+<div id="3e44b03b" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"neo4j+s://dc7691d1.databases.neo4j.io"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>username <span class="op">=</span><span class="st">"neo4j"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>password <span class="op">=</span> <span class="st">"oVDnDE_7i0oxqWHZU6xaMRkqFbXfNx6JPwqH1O0cFc8"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>graph <span class="op">=</span> Neo4jGraph(</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    url<span class="op">=</span>url,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    username<span class="op">=</span>username,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    password<span class="op">=</span>password</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="openai-setup" class="level2">
+<h2 class="anchored" data-anchor-id="openai-setup">OpenAI setup</h2>
+<p>Importing the chat-GPT API key using the .env file is effective and makes for easy project management.</p>
+<div id="98e7e6c9" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>load_dotenv()</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>api_key <span class="op">=</span> os.environ[<span class="st">'OPENAI_API_KEY'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="creating-classes-for-nodes-properties-and-knowledge-graph-to-be-used-later" class="level2">
+<h2 class="anchored" data-anchor-id="creating-classes-for-nodes-properties-and-knowledge-graph-to-be-used-later">Creating classes for Nodes, Properties and Knowledge Graph to be used later</h2>
+<div id="0d7f3cfc" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Property(BaseModel):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""A single property consisting of key and value"""</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  key: <span class="bu">str</span> <span class="op">=</span> Field(..., description<span class="op">=</span><span class="st">"key"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  value: <span class="bu">str</span> <span class="op">=</span> Field(..., description<span class="op">=</span><span class="st">"value"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Node(BaseNode):</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    properties: Optional[List[Property]] <span class="op">=</span> Field(</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">None</span>, description<span class="op">=</span><span class="st">"List of node properties"</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Relationship(BaseRelationship):</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    properties: Optional[List[Property]] <span class="op">=</span> Field(</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">None</span>, description<span class="op">=</span><span class="st">"List of relationship properties"</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> KnowledgeGraph(BaseModel):</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Generate a knowledge graph with entities and relationships."""</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    nodes: List[Node] <span class="op">=</span> Field(</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        ..., description<span class="op">=</span><span class="st">"List of nodes in the knowledge graph"</span>)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    rels: List[Relationship] <span class="op">=</span> Field(</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        ..., description<span class="op">=</span><span class="st">"List of relationships in the knowledge graph"</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="functions-to-create-nodes-properties-and-relationships" class="level2">
+<h2 class="anchored" data-anchor-id="functions-to-create-nodes-properties-and-relationships">Functions to create nodes, properties, and relationships</h2>
+<div id="2206d78a" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> format_property_key(s: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    words <span class="op">=</span> s.split()</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> words:</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> s</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    first_word <span class="op">=</span> words[<span class="dv">0</span>].lower()</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    capitalized_words <span class="op">=</span> [word.capitalize() <span class="cf">for</span> word <span class="kw">in</span> words[<span class="dv">1</span>:]]</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">""</span>.join([first_word] <span class="op">+</span> capitalized_words)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> props_to_dict(props) <span class="op">-&gt;</span> <span class="bu">dict</span>:</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Convert properties to a dictionary."""</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    properties <span class="op">=</span> {}</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> props:</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> properties</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> p <span class="kw">in</span> props:</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        properties[format_property_key(p.key)] <span class="op">=</span> p.value</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> properties</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> map_to_base_node(node: Node) <span class="op">-&gt;</span> BaseNode:</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Map the KnowledgeGraph Node to the base Node."""</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    properties <span class="op">=</span> props_to_dict(node.properties) <span class="cf">if</span> node.properties <span class="cf">else</span> {}</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add name property for better Cypher statement generation</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    properties[<span class="st">"name"</span>] <span class="op">=</span> node.<span class="bu">id</span>.title()</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> BaseNode(</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>        <span class="bu">id</span><span class="op">=</span>node.<span class="bu">id</span>.title(), <span class="bu">type</span><span class="op">=</span>node.<span class="bu">type</span>.capitalize(), properties<span class="op">=</span>properties</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> map_to_base_relationship(rel: Relationship) <span class="op">-&gt;</span> BaseRelationship:</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Map the KnowledgeGraph Relationship to the base Relationship."""</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    source <span class="op">=</span> map_to_base_node(rel.source)</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    target <span class="op">=</span> map_to_base_node(rel.target)</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    properties <span class="op">=</span> props_to_dict(rel.properties) <span class="cf">if</span> rel.properties <span class="cf">else</span> {}</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> BaseRelationship(</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>        source<span class="op">=</span>source, target<span class="op">=</span>target, <span class="bu">type</span><span class="op">=</span>rel.<span class="bu">type</span>, properties<span class="op">=</span>properties</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="prompting-an-llm-to-create-the-appripriate-graph-structure." class="level3">
+<h3 class="anchored" data-anchor-id="prompting-an-llm-to-create-the-appripriate-graph-structure.">Prompting an LLM to create the appripriate graph structure.</h3>
+<div id="505a5db2" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>llm <span class="op">=</span> ChatOpenAI(model<span class="op">=</span><span class="st">"gpt-3.5-turbo-16k"</span>, temperature<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_extraction_chain(</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    allowed_nodes: Optional[List[<span class="bu">str</span>]] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    allowed_rels: Optional[List[<span class="bu">str</span>]] <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    ):</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    prompt <span class="op">=</span> ChatPromptTemplate.from_messages(</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        [(</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>          <span class="st">"system"</span>,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"""# Knowledge Graph Instructions for GPT-4</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="ss">## 1. Overview</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="ss">You are a top-tier algorithm designed for extracting information in structured formats to build a knowledge graph.</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- **Nodes** represent entities and concepts. They're akin to Wikipedia nodes.</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- The aim is to achieve simplicity and clarity in the knowledge graph, making it accessible for a vast audience.</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="ss">## 2. Labeling Nodes</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- **Consistency**: Ensure you use basic or elementary types for node labels.</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="ss">  - For example, when you identify an entity representing a person, always label it as **"person"**. Avoid using more specific terms like "mathematician" or "scientist".</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- **Node IDs**: Never utilize integers as node IDs. Node IDs should be names or human-readable identifiers found in the text.</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span><span class="st">'- **Allowed Node Labels:**'</span> <span class="op">+</span> <span class="st">", "</span><span class="sc">.</span>join(allowed_nodes) <span class="cf">if</span> allowed_nodes <span class="cf">else</span> <span class="st">""</span><span class="sc">}</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span><span class="st">'- **Allowed Relationship Types**:'</span> <span class="op">+</span> <span class="st">", "</span><span class="sc">.</span>join(allowed_rels) <span class="cf">if</span> allowed_rels <span class="cf">else</span> <span class="st">""</span><span class="sc">}</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="ss">## 3. Handling Numerical Data and Dates</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="ss">- Numerical data, like age or other related information, should be incorporated as attributes or properties of the respective nodes.</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="ss">- **No Separate Nodes for Dates/Numbers**: Do not create separate nodes for dates or numerical values. Always attach them as attributes or properties of nodes.</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- **Property Format**: Properties must be in a key-value format.</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="ss">- **Quotation Marks**: Never use escaped single or double quotes within property values.</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- **Naming Convention**: Use camelCase for property keys, e.g., `birthDate`.</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="ss">## 4. Coreference Resolution</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="ss">- **Maintain Entity Consistency**: When extracting entities, it's vital to ensure consistency.</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="ss">If an entity, such as "John Doe", is mentioned multiple times in the text but is referred to by different names or pronouns (e.g., "Joe", "he"),</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="ss">always use the most complete identifier for that entity throughout the knowledge graph. In this example, use "John Doe" as the entity ID.</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="ss">Remember, the knowledge graph should be coherent and easily understandable, so maintaining consistency in entity references is crucial.</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="ss">## 5. Strict Compliance</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="ss">Adhere to the rules strictly. Non-compliance will result in termination.</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="ss">          """</span>),</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"human"</span>, <span class="st">"Use the given format to extract information from the following input: </span><span class="sc">{input}</span><span class="st">"</span>),</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"human"</span>, <span class="st">"Tip: Make sure to answer in the correct format"</span>),</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>        ])</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> create_structured_output_chain(KnowledgeGraph, llm, prompt, verbose<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cf8b15fd" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_and_store_graph(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    document: Document,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    nodes:Optional[List[<span class="bu">str</span>]] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    rels:Optional[List[<span class="bu">str</span>]]<span class="op">=</span><span class="va">None</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Extract graph data using OpenAI functions</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    extract_chain <span class="op">=</span> get_extraction_chain(nodes, rels)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> extract_chain.invoke(document.page_content)[<span class="st">'function'</span>]</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Construct a graph document</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    graph_document <span class="op">=</span> GraphDocument(</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>      nodes <span class="op">=</span> [map_to_base_node(node) <span class="cf">for</span> node <span class="kw">in</span> data.nodes],</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>      relationships <span class="op">=</span> [map_to_base_relationship(rel) <span class="cf">for</span> rel <span class="kw">in</span> data.rels],</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>      source <span class="op">=</span> document</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Store information into a graph</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(graph_document)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    graph.add_graph_documents([graph_document])</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> graph_document</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="b7552cce" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>loader <span class="op">=</span> PyPDFLoader(<span class="st">"Knowledge_graph.pdf"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> datetime.now()</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>pages <span class="op">=</span> loader.load_and_split()</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Define chunking strategy</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>text_splitter <span class="op">=</span> TokenTextSplitter(chunk_size<span class="op">=</span><span class="dv">200</span>, chunk_overlap<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Only take the first 4 pages of the document</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>documents <span class="op">=</span> text_splitter.split_documents(pages[:<span class="dv">4</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="249d841a" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tqdm <span class="im">import</span> tqdm</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>distinct_nodes <span class="op">=</span> <span class="bu">set</span>()</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>relations <span class="op">=</span> []</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, d <span class="kw">in</span> tqdm(<span class="bu">enumerate</span>(documents), total<span class="op">=</span><span class="bu">len</span>(documents)):</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    graph_document<span class="op">=</span>extract_and_store_graph(d)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Get distinct nodes</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> node <span class="kw">in</span> graph_document.nodes :</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>        distinct_nodes.add(node.<span class="bu">id</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Get all relations   </span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> relation <span class="kw">in</span> graph_document.relationships :</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>        relations.append(relation.<span class="bu">type</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  0%|          | 0/17 [00:00&lt;?, ?it/s]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>nodes=[Node(id='Knowledgegraph', type='Concept', properties={'description': 'A knowledge graph is a knowledge base that uses a graph-structured data model or topology to represent and operate on data. It stores interlinked descriptions of entities, objects, events, situations, or abstract concepts, while also encoding the relationships underlying these entities.', 'name': 'Knowledgegraph'}), Node(id='Semanticweb', type='Concept', properties={'description': 'The Semantic Web is a development of the World Wide Web in which web content can be expressed not only in natural language but also in a machine-readable format. Knowledge graphs have often been associated with linked open data projects in the Semantic Web.', 'name': 'Semanticweb'}), Node(id='Searchengines', type='Concept', properties={'description': 'Search engines like Google, Bing, Yext, and Yahoo have historically used knowledge graphs to enhance their search results by understanding the connections between concepts and entities.', 'name': 'Searchengines'}), Node(id='Questionansweringservices', type='Concept', properties={'description': "Question-answering services like WolframAlpha, Apple's Siri, and Amazon Alexa utilize knowledge graphs to provide accurate and relevant answers to user queries.", 'name': 'Questionansweringservices'}), Node(id='Socialnetworks', type='Concept', properties={'description': 'Social networks such as LinkedIn and Facebook also make use of knowledge graphs to establish connections between users and provide personalized recommendations.', 'name': 'Socialnetworks'}), Node(id='Datascience', type='Concept', properties={'description': 'Recent developments in data science have led to advancements in knowledge graph construction and utilization, enabling better insights and decision-making.', 'name': 'Datascience'}), Node(id='Machinelearning', type='Concept', properties={'description': 'Machine learning techniques have been applied to knowledge graphs to improve their accuracy, scalability, and predictive capabilities.', 'name': 'Machinelearning'})] relationships=[Relationship(source=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), target=Node(id='Semanticweb', type='Concept', properties={'name': 'Semanticweb'}), type='associatedWith'), Relationship(source=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), target=Node(id='Searchengines', type='Concept', properties={'name': 'Searchengines'}), type='usedBy'), Relationship(source=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), target=Node(id='Questionansweringservices', type='Concept', properties={'name': 'Questionansweringservices'}), type='usedBy'), Relationship(source=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), target=Node(id='Socialnetworks', type='Concept', properties={'name': 'Socialnetworks'}), type='usedBy'), Relationship(source=Node(id='Datascience', type='Concept', properties={'name': 'Datascience'}), target=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), type='relatedTo'), Relationship(source=Node(id='Machinelearning', type='Concept', properties={'name': 'Machinelearning'}), target=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), type='appliedTo')] source=Document(page_content="Example conceptual diagram\nKnowledge graph\nIn know ledge representation and reasoning, a knowledge graph is\na know ledge base that uses a graph-structured data model or\ntopology to represent and operate on data. Knowledge graphs are\noften used to store interlinked descriptions of entities – objects,\nevents, situations or abstract concepts – while also encoding the\nfree-form semantics or relationships unde rlying these entities.[1][2]\nSince the development of the Semantic Web, know ledge graphs\nhave often been associated with linked open data projects, focusing\non the conne ctions between concepts and entities.[3][4] They are\nalso historically associated with and used by search engines such as\nGoogle, Bing, Yext and Yahoo; know ledge-engines and question-answering services such as\nWolframAlpha, Apple's Siri, and Amazon Alexa; and social networks such as LinkedIn and Facebook .\nRecent developments in data science and machine learning,", metadata={'source': 'Knowledge_graph.pdf', 'page': 0})</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  6%|▌         | 1/17 [00:11&lt;02:57, 11.08s/it]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>nodes=[Node(id='Data Science', type='Concept', properties={'name': 'Data Science'}), Node(id='Machine Learning', type='Concept', properties={'name': 'Machine Learning'}), Node(id='Graph Neural Networks', type='Concept', properties={'name': 'Graph Neural Networks'}), Node(id='Representation Learning', type='Concept', properties={'name': 'Representation Learning'}), Node(id='Knowledge Graphs', type='Concept', properties={'name': 'Knowledge Graphs'}), Node(id='Search Engines', type='Concept', properties={'name': 'Search Engines'}), Node(id='Recommender Systems', type='Concept', properties={'name': 'Recommender Systems'}), Node(id='Scientific Research', type='Concept', properties={'name': 'Scientific Research'}), Node(id='Genomics', type='Concept', properties={'name': 'Genomics'}), Node(id='Proteomics', type='Concept', properties={'name': 'Proteomics'}), Node(id='Systems Biology', type='Concept', properties={'name': 'Systems Biology'}), Node(id='Edgar W. Schneider', type='Person', properties={'name': 'Edgar W. Schneider'}), Node(id='Austrian Linguist', type='Concept', properties={'name': 'Austrian Linguist'}), Node(id='Modular Instructional Systems', type='Concept', properties={'name': 'Modular Instructional Systems'}), Node(id='Courses', type='Concept', properties={'name': 'Courses'}), Node(id='University Of Groningen', type='Organization', properties={'name': 'University Of Groningen'}), Node(id='University Of Twente', type='Organization', properties={'name': 'University Of Twente'}), Node(id='Semantic Networks', type='Concept', properties={'name': 'Semantic Networks'})] relationships=[Relationship(source=Node(id='Data Science', type='Concept', properties={'name': 'Data Science'}), target=Node(id='Knowledge Graphs', type='Concept', properties={'name': 'Knowledge Graphs'}), type='related_to'), Relationship(source=Node(id='Machine Learning', type='Concept', properties={'name': 'Machine Learning'}), target=Node(id='Knowledge Graphs', type='Concept', properties={'name': 'Knowledge Graphs'}), type='related_to'), Relationship(source=Node(id='Graph Neural Networks', type='Concept', properties={'name': 'Graph Neural Networks'}), target=Node(id='Knowledge Graphs', type='Concept', properties={'name': 'Knowledge Graphs'}), type='related_to'), Relationship(source=Node(id='Representation Learning', type='Concept', properties={'name': 'Representation Learning'}), target=Node(id='Knowledge Graphs', type='Concept', properties={'name': 'Knowledge Graphs'}), type='related_to'), Relationship(source=Node(id='Knowledge Graphs', type='Concept', properties={'name': 'Knowledge Graphs'}), target=Node(id='Search Engines', type='Concept', properties={'name': 'Search Engines'}), type='used_in'), Relationship(source=Node(id='Knowledge Graphs', type='Concept', properties={'name': 'Knowledge Graphs'}), target=Node(id='Recommender Systems', type='Concept', properties={'name': 'Recommender Systems'}), type='used_in'), Relationship(source=Node(id='Knowledge Graphs', type='Concept', properties={'name': 'Knowledge Graphs'}), target=Node(id='Scientific Research', type='Concept', properties={'name': 'Scientific Research'}), type='used_in'), Relationship(source=Node(id='Scientific Research', type='Concept', properties={'name': 'Scientific Research'}), target=Node(id='Genomics', type='Concept', properties={'name': 'Genomics'}), type='applied_in'), Relationship(source=Node(id='Scientific Research', type='Concept', properties={'name': 'Scientific Research'}), target=Node(id='Proteomics', type='Concept', properties={'name': 'Proteomics'}), type='applied_in'), Relationship(source=Node(id='Scientific Research', type='Concept', properties={'name': 'Scientific Research'}), target=Node(id='Systems Biology', type='Concept', properties={'name': 'Systems Biology'}), type='applied_in'), Relationship(source=Node(id='Edgar W. Schneider', type='Person', properties={'name': 'Edgar W. Schneider'}), target=Node(id='Modular Instructional Systems', type='Concept', properties={'name': 'Modular Instructional Systems'}), type='coined'), Relationship(source=Node(id='Austrian Linguist', type='Concept', properties={'name': 'Austrian Linguist'}), target=Node(id='Edgar W. Schneider', type='Person', properties={'name': 'Edgar W. Schneider'}), type='related_to'), Relationship(source=Node(id='Modular Instructional Systems', type='Concept', properties={'name': 'Modular Instructional Systems'}), target=Node(id='Courses', type='Concept', properties={'name': 'Courses'}), type='used_in'), Relationship(source=Node(id='University Of Groningen', type='Organization', properties={'name': 'University Of Groningen'}), target=Node(id='Knowledge Graphs', type='Concept', properties={'name': 'Knowledge Graphs'}), type='started_project'), Relationship(source=Node(id='University Of Twente', type='Organization', properties={'name': 'University Of Twente'}), target=Node(id='Knowledge Graphs', type='Concept', properties={'name': 'Knowledge Graphs'}), type='started_project'), Relationship(source=Node(id='Semantic Networks', type='Concept', properties={'name': 'Semantic Networks'}), target=Node(id='Knowledge Graphs', type='Concept', properties={'name': 'Knowledge Graphs'}), type='related_to')] source=Document(page_content='; and social networks such as LinkedIn and Facebook .\nRecent developments in data science and machine learning, particularly in graph neural networks and\nrepresentation learning, have broadened the scope of know ledge graphs beyond their traditional use in\nsearch engines and recommender systems. They are increasingly used in scientific research, with notable\napplications in fields such as genomics, proteomics, and systems biology.[5]\nThe term was coined as early as 1972 by the Austrian linguist Edgar W. Schneider, in a discussion of how\nto build modular instructional systems for courses.[6] In the late 1980s , the University of Groningen and\nUniversity of Twente jointly began a project called Knowledge Graphs, focusing on the design of semantic\nnetworks with edges restricted to a limited set of relations, to facilitate algebras on the graph. In subsequent\ndecades, the distinction be tween semantic networks and know ledge graphs was blurred.\nSome early know ledge graphs were', metadata={'source': 'Knowledge_graph.pdf', 'page': 0})</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code> 12%|█▏        | 2/17 [00:30&lt;04:02, 16.19s/it]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>nodes=[Node(id='Semantic Networks', type='Concept', properties={'name': 'Semantic Networks'}), Node(id='Knowledge Graphs', type='Concept', properties={'name': 'Knowledge Graphs'}), Node(id='Early Knowledge Graphs', type='Concept', properties={'name': 'Early Knowledge Graphs'}), Node(id='Wordnet', type='Organization', properties={'founded': '1985', 'name': 'Wordnet'}), Node(id='Semantic Relationships', type='Concept', properties={'name': 'Semantic Relationships'}), Node(id='Language', type='Concept', properties={'name': 'Language'}), Node(id='Marc Wirk', type='Person', properties={'founded': '2005', 'name': 'Marc Wirk'}), Node(id='Geonames', type='Organization', properties={'name': 'Geonames'}), Node(id='Geographic Names', type='Concept', properties={'name': 'Geographic Names'}), Node(id='Locales', type='Concept', properties={'name': 'Locales'}), Node(id='Entities', type='Concept', properties={'name': 'Entities'}), Node(id='Andrew Edmonds', type='Person', properties={'founded': '1998', 'name': 'Andrew Edmonds'}), Node(id='Science In Finance Ltd', type='Organization', properties={'name': 'Science In Finance Ltd'}), Node(id='Thinkbase', type='System', properties={'name': 'Thinkbase'}), Node(id='Fuzzy-Logic Based Reasoning', type='Concept', properties={'name': 'Fuzzy-Logic Based Reasoning'}), Node(id='Graphical Context', type='Concept', properties={'name': 'Graphical Context'}), Node(id='Dbpedia', type='Organization', properties={'founded': '2007', 'name': 'Dbpedia'}), Node(id='Freebase', type='Organization', properties={'founded': '2007', 'name': 'Freebase'}), Node(id='Wikipedia', type='Source', properties={'name': 'Wikipedia'}), Node(id='Public Datasets', type='Concept', properties={'name': 'Public Datasets'}), Node(id='Knowledge Repositories', type='Concept', properties={'name': 'Knowledge Repositories'}), Node(id='Google Knowledge Graph', type='System', properties={'introduced': '2012', 'name': 'Google Knowledge Graph'})] relationships=[Relationship(source=Node(id='Semantic Networks', type='Concept', properties={'name': 'Semantic Networks'}), target=Node(id='Knowledge Graphs', type='Concept', properties={'name': 'Knowledge Graphs'}), type='relationship', properties={'description': 'blurred'}), Relationship(source=Node(id='Early Knowledge Graphs', type='Concept', properties={'name': 'Early Knowledge Graphs'}), target=Node(id='Knowledge Graphs', type='Concept', properties={'name': 'Knowledge Graphs'}), type='relationship', properties={'description': 'topic-specific'}), Relationship(source=Node(id='Wordnet', type='Organization', properties={'name': 'Wordnet'}), target=Node(id='Semantic Relationships', type='Concept', properties={'name': 'Semantic Relationships'}), type='relationship', properties={'description': 'capturing'}), Relationship(source=Node(id='Wordnet', type='Organization', properties={'name': 'Wordnet'}), target=Node(id='Language', type='Concept', properties={'name': 'Language'}), type='relationship', properties={'description': 'application'}), Relationship(source=Node(id='Marc Wirk', type='Person', properties={'name': 'Marc Wirk'}), target=Node(id='Geonames', type='Organization', properties={'name': 'Geonames'}), type='relationship', properties={'description': 'capturing'}), Relationship(source=Node(id='Geonames', type='Organization', properties={'name': 'Geonames'}), target=Node(id='Geographic Names', type='Concept', properties={'name': 'Geographic Names'}), type='relationship', properties={'description': 'relationships'}), Relationship(source=Node(id='Geonames', type='Organization', properties={'name': 'Geonames'}), target=Node(id='Locales', type='Concept', properties={'name': 'Locales'}), type='relationship', properties={'description': 'relationships'}), Relationship(source=Node(id='Geonames', type='Organization', properties={'name': 'Geonames'}), target=Node(id='Entities', type='Concept', properties={'name': 'Entities'}), type='relationship', properties={'description': 'relationships'}), Relationship(source=Node(id='Andrew Edmonds', type='Person', properties={'name': 'Andrew Edmonds'}), target=Node(id='Science In Finance Ltd', type='Organization', properties={'name': 'Science In Finance Ltd'}), type='relationship', properties={'description': 'created'}), Relationship(source=Node(id='Science In Finance Ltd', type='Organization', properties={'name': 'Science In Finance Ltd'}), target=Node(id='Thinkbase', type='System', properties={'name': 'Thinkbase'}), type='relationship', properties={'description': 'offered'}), Relationship(source=Node(id='Thinkbase', type='System', properties={'name': 'Thinkbase'}), target=Node(id='Fuzzy-Logic Based Reasoning', type='Concept', properties={'name': 'Fuzzy-Logic Based Reasoning'}), type='relationship', properties={'description': 'based'}), Relationship(source=Node(id='Thinkbase', type='System', properties={'name': 'Thinkbase'}), target=Node(id='Graphical Context', type='Concept', properties={'name': 'Graphical Context'}), type='relationship', properties={'description': 'in'}), Relationship(source=Node(id='Dbpedia', type='Organization', properties={'name': 'Dbpedia'}), target=Node(id='Wikipedia', type='Source', properties={'name': 'Wikipedia'}), type='relationship', properties={'description': 'extracted'}), Relationship(source=Node(id='Freebase', type='Organization', properties={'name': 'Freebase'}), target=Node(id='Wikipedia', type='Source', properties={'name': 'Wikipedia'}), type='relationship', properties={'description': 'extracted'}), Relationship(source=Node(id='Dbpedia', type='Organization', properties={'name': 'Dbpedia'}), target=Node(id='Knowledge Repositories', type='Concept', properties={'name': 'Knowledge Repositories'}), type='relationship', properties={'description': 'focused'}), Relationship(source=Node(id='Freebase', type='Organization', properties={'name': 'Freebase'}), target=Node(id='Knowledge Repositories', type='Concept', properties={'name': 'Knowledge Repositories'}), type='relationship', properties={'description': 'included'}), Relationship(source=Node(id='Google Knowledge Graph', type='System', properties={'name': 'Google Knowledge Graph'}), target=Node(id='Wikipedia', type='Source', properties={'name': 'Wikipedia'}), type='relationship', properties={'description': 'introduced'})] source=Document(page_content=" distinction be tween semantic networks and know ledge graphs was blurred.\nSome early know ledge graphs were topic-specific. In 1985, Wordnet was founde d, capturing semantic\nrelationships between words and meanings – an application of this idea to langua ge itself. In 2005, Marc\nWirk founde d Geonames to capture relationships between different geographic names and locales and\nassociated entities. In 1998 Andrew Edmonds  of Science in Finance Ltd in the UK created a system called\nThinkBase that offered fuzzy-logic based reasoning in a graphical context.[7]\nIn 2007, both DBpedia and Freebase were founde d as graph-based know ledge repositories for general-\npurpose knowledge. DBpedia focused exclusively on data extracted from Wikipedia, while Freebase also\nincluded a range of public datasets. Neither described themselves as a 'know ledge graph' but developed and\ndescribed related concepts.\nIn 2012, Google introduc ed their Knowledge Graph,[", metadata={'source': 'Knowledge_graph.pdf', 'page': 0})</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code> 18%|█▊        | 3/17 [00:59&lt;05:08, 22.04s/it]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>nodes=[Node(id='Google', type='Organization', properties={'name': 'Google'}), Node(id='Knowledge Graph', type='Concept', properties={'name': 'Knowledge Graph'}), Node(id='Dbpedia', type='Concept', properties={'name': 'Dbpedia'}), Node(id='Freebase', type='Concept', properties={'name': 'Freebase'}), Node(id='Rdfa', type='Concept', properties={'name': 'Rdfa'}), Node(id='Microdata', type='Concept', properties={'name': 'Microdata'}), Node(id='Json-Ld', type='Concept', properties={'name': 'Json-Ld'}), Node(id='Cia World Factbook', type='Source', properties={'name': 'Cia World Factbook'}), Node(id='Wikidata', type='Source', properties={'name': 'Wikidata'}), Node(id='Wikipedia', type='Source', properties={'name': 'Wikipedia'})] relationships=[Relationship(source=Node(id='Google', type='Organization', properties={'name': 'Google'}), target=Node(id='Knowledge Graph', type='Concept', properties={'name': 'Knowledge Graph'}), type='developed'), Relationship(source=Node(id='Google', type='Organization', properties={'name': 'Google'}), target=Node(id='Dbpedia', type='Concept', properties={'name': 'Dbpedia'}), type='building on'), Relationship(source=Node(id='Google', type='Organization', properties={'name': 'Google'}), target=Node(id='Freebase', type='Concept', properties={'name': 'Freebase'}), type='building on'), Relationship(source=Node(id='Google', type='Organization', properties={'name': 'Google'}), target=Node(id='Rdfa', type='Concept', properties={'name': 'Rdfa'}), type='incorporated'), Relationship(source=Node(id='Google', type='Organization', properties={'name': 'Google'}), target=Node(id='Microdata', type='Concept', properties={'name': 'Microdata'}), type='incorporated'), Relationship(source=Node(id='Google', type='Organization', properties={'name': 'Google'}), target=Node(id='Json-Ld', type='Concept', properties={'name': 'Json-Ld'}), type='incorporated'), Relationship(source=Node(id='Google', type='Organization', properties={'name': 'Google'}), target=Node(id='Cia World Factbook', type='Source', properties={'name': 'Cia World Factbook'}), type='incorporated'), Relationship(source=Node(id='Google', type='Organization', properties={'name': 'Google'}), target=Node(id='Wikidata', type='Source', properties={'name': 'Wikidata'}), type='incorporated'), Relationship(source=Node(id='Google', type='Organization', properties={'name': 'Google'}), target=Node(id='Wikipedia', type='Source', properties={'name': 'Wikipedia'}), type='incorporated')] source=Document(page_content=' but developed and\ndescribed related concepts.\nIn 2012, Google introduc ed their Knowledge Graph,[8] building on DBpedia and Freebase among other\nsources. They later incorporated RDFa, Microdata, JSON-LD content extracted from indexed web pages,\nincluding the CIA World Factbook , Wikidata, and Wikipedia.[8][9] Entity and relationship types associatedHistory', metadata={'source': 'Knowledge_graph.pdf', 'page': 0})</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code> 24%|██▎       | 4/17 [01:12&lt;03:57, 18.27s/it]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>nodes=[Node(id='Google Knowledge Graph', type='Knowledgegraph', properties={'name': 'Google Knowledge Graph'}), Node(id='Schema.Org', type='Vocabulary', properties={'name': 'Schema.Org'}), Node(id='String-Based Search', type='Search', properties={'name': 'String-Based Search'}), Node(id='Popularity', type='Term', properties={'name': 'Popularity'}), Node(id='Online', type='Term', properties={'name': 'Online'}), Node(id='Facebook', type='Company', properties={'name': 'Facebook'}), Node(id='Linkedin', type='Company', properties={'name': 'Linkedin'}), Node(id='Airbnb', type='Company', properties={'name': 'Airbnb'}), Node(id='Microsoft', type='Company', properties={'name': 'Microsoft'}), Node(id='Amazon', type='Company', properties={'name': 'Amazon'}), Node(id='Uber', type='Company', properties={'name': 'Uber'}), Node(id='Ebay', type='Company', properties={'name': 'Ebay'}), Node(id='Ieee', type='Organization', properties={'name': 'Ieee'}), Node(id='Big Knowledge', type='Conference', properties={'name': 'Big Knowledge'}), Node(id='Data Mining And Intelligent Computing', type='Conference', properties={'name': 'Data Mining And Intelligent Computing'}), Node(id='International Conference On Knowledge Graph', type='Conference', properties={'name': 'International Conference On Knowledge Graph'}), Node(id='Knowledge Graph', type='Term', properties={'name': 'Knowledge Graph'}), Node(id='Semantic Web', type='Topic', properties={'name': 'Semantic Web'})] relationships=[Relationship(source=Node(id='Google Knowledge Graph', type='Knowledgegraph', properties={'name': 'Google Knowledge Graph'}), target=Node(id='String-Based Search', type='Search', properties={'name': 'String-Based Search'}), type='complementTo'), Relationship(source=Node(id='Google Knowledge Graph', type='Knowledgegraph', properties={'name': 'Google Knowledge Graph'}), target=Node(id='Popularity', type='Term', properties={'name': 'Popularity'}), type='bringsInto'), Relationship(source=Node(id='Google Knowledge Graph', type='Knowledgegraph', properties={'name': 'Google Knowledge Graph'}), target=Node(id='Online', type='Term', properties={'name': 'Online'}), type='bringsInto'), Relationship(source=Node(id='Facebook', type='Company', properties={'name': 'Facebook'}), target=Node(id='Knowledge Graph', type='Term', properties={'name': 'Knowledge Graph'}), type='uses'), Relationship(source=Node(id='Linkedin', type='Company', properties={'name': 'Linkedin'}), target=Node(id='Knowledge Graph', type='Term', properties={'name': 'Knowledge Graph'}), type='uses'), Relationship(source=Node(id='Airbnb', type='Company', properties={'name': 'Airbnb'}), target=Node(id='Knowledge Graph', type='Term', properties={'name': 'Knowledge Graph'}), type='uses'), Relationship(source=Node(id='Microsoft', type='Company', properties={'name': 'Microsoft'}), target=Node(id='Knowledge Graph', type='Term', properties={'name': 'Knowledge Graph'}), type='uses'), Relationship(source=Node(id='Amazon', type='Company', properties={'name': 'Amazon'}), target=Node(id='Knowledge Graph', type='Term', properties={'name': 'Knowledge Graph'}), type='uses'), Relationship(source=Node(id='Uber', type='Company', properties={'name': 'Uber'}), target=Node(id='Knowledge Graph', type='Term', properties={'name': 'Knowledge Graph'}), type='uses'), Relationship(source=Node(id='Ebay', type='Company', properties={'name': 'Ebay'}), target=Node(id='Knowledge Graph', type='Term', properties={'name': 'Knowledge Graph'}), type='uses'), Relationship(source=Node(id='Ieee', type='Organization', properties={'name': 'Ieee'}), target=Node(id='Big Knowledge', type='Conference', properties={'name': 'Big Knowledge'}), type='combinedInto'), Relationship(source=Node(id='Ieee', type='Organization', properties={'name': 'Ieee'}), target=Node(id='Data Mining And Intelligent Computing', type='Conference', properties={'name': 'Data Mining And Intelligent Computing'}), type='combinedInto'), Relationship(source=Node(id='Big Knowledge', type='Conference', properties={'name': 'Big Knowledge'}), target=Node(id='International Conference On Knowledge Graph', type='Conference', properties={'name': 'International Conference On Knowledge Graph'}), type='combinedInto'), Relationship(source=Node(id='Knowledge Graph', type='Term', properties={'name': 'Knowledge Graph'}), target=Node(id='Semantic Web', type='Topic', properties={'name': 'Semantic Web'}), type='viewedThrough')] source=Document(page_content='with this know ledge graph have been further organized using terms from the schema.org[10] vocabulary.\nThe Google Knowledge Graph became a successful complement to string-based search within Google, and\nits popul arity onl ine brought  the term into more common us e.[10]\nSince then, several large multinationals have advertised their know ledge graphs use, further popul arising the\nterm. These include Facebook, L inkedIn, Airbnb, Microsoft, Amazon, Uber and eBay.[11]\nIn 2019, IEEE combined its annua l international conferences on "Big Knowledge" and "Data Mining and\nIntelligent Computing" into the International Conference on K nowledge Graph.[12]\nThere is no single commonly accepted definition of a know ledge graph. Most definitions view the topic\nthrough a  Semantic Web lens and include these features:[13]\nFlexible relations among knowledge in topical domains: A knowledge graph (i) defines\nabstract classes and', metadata={'source': 'Knowledge_graph.pdf', 'page': 1})</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code> 29%|██▉       | 5/17 [01:29&lt;03:35, 17.99s/it]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>nodes=[Node(id='Knowledgegraph', type='Concept', properties={'definition': 'A digital structure that represents knowledge as concepts and the relationships between them (facts).', 'name': 'Knowledgegraph'}), Node(id='Entity', type='Concept', properties={'definition': 'Real world entities', 'name': 'Entity'}), Node(id='Schema', type='Concept', properties={'definition': 'Defines abstract classes and relations of entities', 'name': 'Schema'}), Node(id='Property', type='Concept', properties={'definition': 'Categorical or numerical values used to represent properties', 'name': 'Property'}), Node(id='Relationship', type='Concept', properties={'definition': 'Describes the interrelations between real world entities', 'name': 'Relationship'}), Node(id='Ontology', type='Concept', properties={'definition': 'A collection of knowledge organized in a structured way', 'name': 'Ontology'}), Node(id='Reasoner', type='Concept', properties={'definition': 'Applies logical rules to derive new knowledge from an ontology', 'name': 'Reasoner'})] relationships=[Relationship(source=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), target=Node(id='Entity', type='Concept', properties={'name': 'Entity'}), type='describes'), Relationship(source=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), target=Node(id='Schema', type='Concept', properties={'name': 'Schema'}), type='defines'), Relationship(source=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), target=Node(id='Relationship', type='Concept', properties={'name': 'Relationship'}), type='describes'), Relationship(source=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), target=Node(id='Property', type='Concept', properties={'name': 'Property'}), type='describes'), Relationship(source=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), target=Node(id='Ontology', type='Concept', properties={'name': 'Ontology'}), type='acquires and integrates information into'), Relationship(source=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), target=Node(id='Reasoner', type='Concept', properties={'name': 'Reasoner'}), type='applies')] source=Document(page_content='ible relations among knowledge in topical domains: A knowledge graph (i) defines\nabstract classes and relations of entities in a schema, (ii) mainly describes real world entities\nand their interrelations, organized in a graph, (iii) allows for potentially interrelating arbitrary\nentities with each other, and (iv) covers various topical domains.[14]\nGeneral structure: A network of entities, their semantic types, properties, and\nrelationships.[15][16] To represent properties, categorical or numerical values are often used.\nSupporting reasoning over inferred ontologies: A knowledge graph acquires and integrates\ninformation into an ontology and applies a reasoner to derive new knowledge.[3]\nThere are, however, many know ledge graph representations for which some of these features are not\nrelevant. For those know ledge graphs, this simpler definition m ay be more useful:\nA digital structure that represents knowledge as concepts and the relationships between\nthem (facts).', metadata={'source': 'Knowledge_graph.pdf', 'page': 1})</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code> 35%|███▌      | 6/17 [01:41&lt;02:53, 15.78s/it]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>nodes=[Node(id='Knowledgegraph', type='Concept', properties={'description': 'A digital structure that represents knowledge as concepts and the relationships between them (facts).', 'name': 'Knowledgegraph'}), Node(id='Ontology', type='Concept', properties={'description': 'An ontology allows both humans and machines to understand and reason about the contents of a knowledge graph.', 'name': 'Ontology'}), Node(id='Yago', type='Openknowledgeproject', properties={'description': 'An open knowledge project.', 'name': 'Yago'}), Node(id='Wikidata', type='Openknowledgeproject', properties={'description': 'An open knowledge project.', 'name': 'Wikidata'}), Node(id='Linkedopendata', type='Federation', properties={'description': 'A federation of linked open data.', 'name': 'Linkedopendata'}), Node(id='Spark', type='Searchtool', properties={'description': "Yahoo's semantic search assistant.", 'name': 'Spark'}), Node(id='Knowledgegraph', type='Searchtool', properties={'description': "Google's knowledge graph.", 'name': 'Knowledgegraph'}), Node(id='Satori', type='Searchtool', properties={'description': "Microsoft's Satori.", 'name': 'Satori'}), Node(id='Linkedin', type='Entitygraph', properties={'description': "LinkedIn's entity graph.", 'name': 'Linkedin'}), Node(id='Facebook', type='Entitygraph', properties={'description': "Facebook's entity graph.", 'name': 'Facebook'}), Node(id='Notetakingsoftware', type='Application', properties={'description': 'Software applications that allow a user to build a personal knowledge graph.', 'name': 'Notetakingsoftware'}), Node(id='Neo4J', type='Graphdatabase', properties={'description': 'A graph database.', 'name': 'Neo4J'}), Node(id='Graphdb', type='Graphdatabase', properties={'description': 'A graph database.', 'name': 'Graphdb'})] relationships=[Relationship(source=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), target=Node(id='Ontology', type='Concept', properties={'name': 'Ontology'}), type='includes'), Relationship(source=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), target=Node(id='Yago', type='Openknowledgeproject', properties={'name': 'Yago'}), type='describedAs'), Relationship(source=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), target=Node(id='Wikidata', type='Openknowledgeproject', properties={'name': 'Wikidata'}), type='describedAs'), Relationship(source=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), target=Node(id='Linkedopendata', type='Federation', properties={'name': 'Linkedopendata'}), type='describedAs'), Relationship(source=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), target=Node(id='Spark', type='Searchtool', properties={'name': 'Spark'}), type='describedAs'), Relationship(source=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), target=Node(id='Knowledgegraph', type='Searchtool', properties={'name': 'Knowledgegraph'}), type='describedAs'), Relationship(source=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), target=Node(id='Satori', type='Searchtool', properties={'name': 'Satori'}), type='describedAs'), Relationship(source=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), target=Node(id='Linkedin', type='Entitygraph', properties={'name': 'Linkedin'}), type='describedAs'), Relationship(source=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), target=Node(id='Facebook', type='Entitygraph', properties={'name': 'Facebook'}), type='describedAs'), Relationship(source=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), target=Node(id='Notetakingsoftware', type='Application', properties={'name': 'Notetakingsoftware'}), type='describedAs'), Relationship(source=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), target=Node(id='Neo4J', type='Graphdatabase', properties={'name': 'Neo4J'}), type='describedAs'), Relationship(source=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), target=Node(id='Graphdb', type='Graphdatabase', properties={'name': 'Graphdb'}), type='describedAs')] source=Document(page_content=" useful:\nA digital structure that represents knowledge as concepts and the relationships between\nthem (facts). A knowledge graph can include an ontology that allows both humans and\nmachines to understand and reason about its contents.[17][18]\nIn addition to the above  examples, the term has been used to describe open know ledge projects such as\nYAGO and Wikidata; federations like the Linked Open Data cloud;[19] a range of commercial search tools,\nincluding Yahoo's semantic search assistant Spark, Google's Knowledge Graph, and Microsoft's Satori; and\nthe LinkedIn and Facebook e ntity graphs.[3]\nThe term is also used in the context of note-taking software applications that allow a user to build a personal\nknow ledge graph.[20]\nThe popularization of know ledge graphs and their accompanying methods have led to the development of\ngraph databases such as Neo4j[21] and GraphDB.[22]", metadata={'source': 'Knowledge_graph.pdf', 'page': 1})</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code> 41%|████      | 7/17 [01:59&lt;02:44, 16.44s/it]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>nodes=[Node(id='Neo4J', type='Database', properties={'name': 'Neo4J'}), Node(id='Graphdb', type='Database', properties={'name': 'Graphdb'}), Node(id='Users', type='Entity', properties={'name': 'Users'}), Node(id='Data', type='Entity', properties={'name': 'Data'}), Node(id='Interrelationships', type='Entity', properties={'name': 'Interrelationships'}), Node(id='Operations', type='Entity', properties={'name': 'Operations'}), Node(id='Reasoning', type='Entity', properties={'name': 'Reasoning'}), Node(id='Node Embedding', type='Entity', properties={'name': 'Node Embedding'}), Node(id='Ontology Development', type='Entity', properties={'name': 'Ontology Development'}), Node(id='Knowledge Bases', type='Entity', properties={'name': 'Knowledge Bases'})] relationships=[Relationship(source=Node(id='Neo4J', type='Database', properties={'name': 'Neo4J'}), target=Node(id='Users', type='Entity', properties={'name': 'Users'}), type='store data'), Relationship(source=Node(id='Neo4J', type='Database', properties={'name': 'Neo4J'}), target=Node(id='Interrelationships', type='Entity', properties={'name': 'Interrelationships'}), type='store data'), Relationship(source=Node(id='Neo4J', type='Database', properties={'name': 'Neo4J'}), target=Node(id='Operations', type='Entity', properties={'name': 'Operations'}), type='store data'), Relationship(source=Node(id='Neo4J', type='Database', properties={'name': 'Neo4J'}), target=Node(id='Reasoning', type='Entity', properties={'name': 'Reasoning'}), type='store data'), Relationship(source=Node(id='Neo4J', type='Database', properties={'name': 'Neo4J'}), target=Node(id='Node Embedding', type='Entity', properties={'name': 'Node Embedding'}), type='store data'), Relationship(source=Node(id='Neo4J', type='Database', properties={'name': 'Neo4J'}), target=Node(id='Ontology Development', type='Entity', properties={'name': 'Ontology Development'}), type='store data'), Relationship(source=Node(id='Graphdb', type='Database', properties={'name': 'Graphdb'}), target=Node(id='Users', type='Entity', properties={'name': 'Users'}), type='store data'), Relationship(source=Node(id='Graphdb', type='Database', properties={'name': 'Graphdb'}), target=Node(id='Interrelationships', type='Entity', properties={'name': 'Interrelationships'}), type='store data'), Relationship(source=Node(id='Graphdb', type='Database', properties={'name': 'Graphdb'}), target=Node(id='Operations', type='Entity', properties={'name': 'Operations'}), type='store data'), Relationship(source=Node(id='Graphdb', type='Database', properties={'name': 'Graphdb'}), target=Node(id='Reasoning', type='Entity', properties={'name': 'Reasoning'}), type='store data'), Relationship(source=Node(id='Graphdb', type='Database', properties={'name': 'Graphdb'}), target=Node(id='Node Embedding', type='Entity', properties={'name': 'Node Embedding'}), type='store data'), Relationship(source=Node(id='Graphdb', type='Database', properties={'name': 'Graphdb'}), target=Node(id='Ontology Development', type='Entity', properties={'name': 'Ontology Development'}), type='store data'), Relationship(source=Node(id='Users', type='Entity', properties={'name': 'Users'}), target=Node(id='Data', type='Entity', properties={'name': 'Data'}), type='as entities'), Relationship(source=Node(id='Interrelationships', type='Entity', properties={'name': 'Interrelationships'}), target=Node(id='Data', type='Entity', properties={'name': 'Data'}), type='as entities'), Relationship(source=Node(id='Operations', type='Entity', properties={'name': 'Operations'}), target=Node(id='Data', type='Entity', properties={'name': 'Data'}), type='as entities'), Relationship(source=Node(id='Reasoning', type='Entity', properties={'name': 'Reasoning'}), target=Node(id='Data', type='Entity', properties={'name': 'Data'}), type='as entities'), Relationship(source=Node(id='Node Embedding', type='Entity', properties={'name': 'Node Embedding'}), target=Node(id='Data', type='Entity', properties={'name': 'Data'}), type='as entities'), Relationship(source=Node(id='Ontology Development', type='Entity', properties={'name': 'Ontology Development'}), target=Node(id='Data', type='Entity', properties={'name': 'Data'}), type='as entities'), Relationship(source=Node(id='Knowledge Bases', type='Entity', properties={'name': 'Knowledge Bases'}), target=Node(id='Data', type='Entity', properties={'name': 'Data'}), type='as entities')] source=Document(page_content=' the development of\ngraph databases such as Neo4j[21] and GraphDB.[22] These graph databases allow users to easily store data\nas entities their interrelationships, and facilitate operations such as data reasoning, node  embedding, and\nontology de velopment on know ledge bases.Definitions\nImplementations\nUsing a k nowledge graph for reasoning ove r data', metadata={'source': 'Knowledge_graph.pdf', 'page': 1})</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code> 47%|████▋     | 8/17 [02:15&lt;02:28, 16.53s/it]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>nodes=[Node(id='Entityalignment', type='Concept', properties={'name': 'Entityalignment'}), Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), Node(id='Ontology', type='Concept', properties={'name': 'Ontology'}), Node(id='Logicalinference', type='Concept', properties={'name': 'Logicalinference'}), Node(id='Latentfeaturerepresentations', type='Concept', properties={'name': 'Latentfeaturerepresentations'}), Node(id='Knowledgegraphembeddings', type='Concept', properties={'name': 'Knowledgegraphembeddings'}), Node(id='Graphneuralnetworks', type='Concept', properties={'name': 'Graphneuralnetworks'})] relationships=[Relationship(source=Node(id='Entityalignment', type='Concept', properties={'name': 'Entityalignment'}), target=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), type='process'), Relationship(source=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), target=Node(id='Ontology', type='Concept', properties={'name': 'Ontology'}), type='hasSchemaLayer'), Relationship(source=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), target=Node(id='Logicalinference', type='Concept', properties={'name': 'Logicalinference'}), type='allowsInference'), Relationship(source=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), target=Node(id='Latentfeaturerepresentations', type='Concept', properties={'name': 'Latentfeaturerepresentations'}), type='hasEntitiesAndRelations'), Relationship(source=Node(id='Latentfeaturerepresentations', type='Concept', properties={'name': 'Latentfeaturerepresentations'}), target=Node(id='Knowledgegraphembeddings', type='Concept', properties={'name': 'Knowledgegraphembeddings'}), type='derivesFeatureRepresentations'), Relationship(source=Node(id='Knowledgegraphembeddings', type='Concept', properties={'name': 'Knowledgegraphembeddings'}), target=Node(id='Graphneuralnetworks', type='Concept', properties={'name': 'Graphneuralnetworks'}), type='commonlyUsedBy')] source=Document(page_content='Two hypothetical knowledge graphs representing disparate topics contain a\nnode that corresponds to the same entity in the real world. Entity alignment\nis the process of identifying such nodes across multiple graphs.A knowledge graph formally represents semantics by describing entities and their relationships.[23]\nKnowledge graphs may make use of ontologies as a schema layer. By doing this, they allow logical\ninference for retrieving implicit know ledge rather than only allowing queries requesting explicit\nknow ledge.[24]\nIn order to allow the use of know ledge graphs in various machine learning tasks, several methods for\nderiving latent feature representations of entities and relations have been devised. These know ledge graph\nembeddings allow them to be conne cted to machine learning methods  that require feature vectors like word\nembeddings. This can complement other estimates of conceptual similarity.[25][26]\nModels for generating useful know ledge graph embeddings are commonly the domain of graph neural\nnetworks (GNNs).[', metadata={'source': 'Knowledge_graph.pdf', 'page': 2})</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code> 53%|█████▎    | 9/17 [02:23&lt;01:50, 13.76s/it]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>nodes=[Node(id='Graph Neural Networks', type='Concept', properties={'name': 'Graph Neural Networks'}), Node(id='Gnns', type='Concept', properties={'name': 'Gnns'}), Node(id='Entities', type='Concept', properties={'name': 'Entities'}), Node(id='Relationships', type='Concept', properties={'name': 'Relationships'}), Node(id='Knowledge Graphs', type='Concept', properties={'name': 'Knowledge Graphs'}), Node(id='Topology', type='Concept', properties={'name': 'Topology'}), Node(id='Data Structures', type='Concept', properties={'name': 'Data Structures'}), Node(id='Semi-Supervised Learning', type='Concept', properties={'name': 'Semi-Supervised Learning'}), Node(id='Node Embedding', type='Concept', properties={'name': 'Node Embedding'}), Node(id='Edges', type='Concept', properties={'name': 'Edges'}), Node(id='Edge', type='Concept', properties={'name': 'Edge'}), Node(id='Knowledge Graph Reasoning', type='Concept', properties={'name': 'Knowledge Graph Reasoning'}), Node(id='Alignment', type='Concept', properties={'name': 'Alignment'})] relationships=[Relationship(source=Node(id='Graph Neural Networks', type='Concept', properties={'name': 'Graph Neural Networks'}), target=Node(id='Gnns', type='Concept', properties={'name': 'Gnns'}), type='comprise'), Relationship(source=Node(id='Gnns', type='Concept', properties={'name': 'Gnns'}), target=Node(id='Entities', type='Concept', properties={'name': 'Entities'}), type='correspond to'), Relationship(source=Node(id='Gnns', type='Concept', properties={'name': 'Gnns'}), target=Node(id='Relationships', type='Concept', properties={'name': 'Relationships'}), type='correspond to'), Relationship(source=Node(id='Knowledge Graphs', type='Concept', properties={'name': 'Knowledge Graphs'}), target=Node(id='Topology', type='Concept', properties={'name': 'Topology'}), type='afford'), Relationship(source=Node(id='Knowledge Graphs', type='Concept', properties={'name': 'Knowledge Graphs'}), target=Node(id='Data Structures', type='Concept', properties={'name': 'Data Structures'}), type='afford'), Relationship(source=Node(id='Data Structures', type='Concept', properties={'name': 'Data Structures'}), target=Node(id='Semi-Supervised Learning', type='Concept', properties={'name': 'Semi-Supervised Learning'}), type='provide'), Relationship(source=Node(id='Semi-Supervised Learning', type='Concept', properties={'name': 'Semi-Supervised Learning'}), target=Node(id='Node Embedding', type='Concept', properties={'name': 'Node Embedding'}), type='predict'), Relationship(source=Node(id='Semi-Supervised Learning', type='Concept', properties={'name': 'Semi-Supervised Learning'}), target=Node(id='Edges', type='Concept', properties={'name': 'Edges'}), type='predict'), Relationship(source=Node(id='Edges', type='Concept', properties={'name': 'Edges'}), target=Node(id='Edge', type='Concept', properties={'name': 'Edge'}), type='provide'), Relationship(source=Node(id='Knowledge Graphs', type='Concept', properties={'name': 'Knowledge Graphs'}), target=Node(id='Knowledge Graph Reasoning', type='Concept', properties={'name': 'Knowledge Graph Reasoning'}), type='serve as'), Relationship(source=Node(id='Knowledge Graphs', type='Concept', properties={'name': 'Knowledge Graphs'}), target=Node(id='Alignment', type='Concept', properties={'name': 'Alignment'}), type='serve as'), Relationship(source=Node(id='Knowledge Graphs', type='Concept', properties={'name': 'Knowledge Graphs'}), target=Node(id='Entities', type='Concept', properties={'name': 'Entities'}), type='represented in')] source=Document(page_content=' ledge graph embeddings are commonly the domain of graph neural\nnetworks (GNNs).[27] GNNs are deep learning architectures that comprise edges and node s, which\ncorrespond well to the entities and relationships of know ledge graphs. The topology and data structures\nafforded by GNNS provides a conve nient domain for semi-supervised learning, wherein the network is\ntrained to predict the value of a node  embedding (provided a group of adjacent node s and their edges) or\nedge (provided a pair of node s). These tasks serve as funda mental abstractions for more complex tasks such\nas know ledge graph reasoning and alignment.[28]\nAs new know ledge graphs are\nproduc ed across a variety of\nfields and contexts, the same\nentity will inevitably be\nrepresented in multiple graphs.\nHowever, because no single\nstandard for the construction or\nrepresentation of know ledge\ngraph exists, resolving which\n', metadata={'source': 'Knowledge_graph.pdf', 'page': 2})</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code> 59%|█████▉    | 10/17 [02:37&lt;01:36, 13.77s/it]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>nodes=[Node(id='Knowledgegraph', type='Concept', properties={'description': 'standard for the construction or representation of knowledge graph', 'name': 'Knowledgegraph'}), Node(id='Entityalignment', type='Concept', properties={'description': 'task of aligning entities from different knowledge graphs', 'name': 'Entityalignment'}), Node(id='Research', type='Concept', properties={'description': 'active area of research', 'name': 'Research'}), Node(id='Strategies', type='Concept', properties={'description': 'methods used for entity alignment', 'name': 'Strategies'}), Node(id='Substructures', type='Concept', properties={'description': 'similar structures within knowledge graphs', 'name': 'Substructures'}), Node(id='Semanticrelationships', type='Concept', properties={'description': 'relationships between entities in knowledge graphs', 'name': 'Semanticrelationships'}), Node(id='Sharedattributes', type='Concept', properties={'description': 'common attributes between entities in knowledge graphs', 'name': 'Sharedattributes'}), Node(id='Llms', type='Concept', properties={'description': 'large language models', 'name': 'Llms'}), Node(id='Embeddings', type='Concept', properties={'description': 'syntactically meaningful representations of entities', 'name': 'Embeddings'})] relationships=[Relationship(source=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), target=Node(id='Entityalignment', type='Concept', properties={'name': 'Entityalignment'}), type='correspondsTo'), Relationship(source=Node(id='Entityalignment', type='Concept', properties={'name': 'Entityalignment'}), target=Node(id='Research', type='Concept', properties={'name': 'Research'}), type='isPartOf'), Relationship(source=Node(id='Entityalignment', type='Concept', properties={'name': 'Entityalignment'}), target=Node(id='Strategies', type='Concept', properties={'name': 'Strategies'}), type='uses'), Relationship(source=Node(id='Strategies', type='Concept', properties={'name': 'Strategies'}), target=Node(id='Substructures', type='Concept', properties={'name': 'Substructures'}), type='identifySimilar'), Relationship(source=Node(id='Strategies', type='Concept', properties={'name': 'Strategies'}), target=Node(id='Semanticrelationships', type='Concept', properties={'name': 'Semanticrelationships'}), type='identifySimilar'), Relationship(source=Node(id='Strategies', type='Concept', properties={'name': 'Strategies'}), target=Node(id='Sharedattributes', type='Concept', properties={'name': 'Sharedattributes'}), type='identifySimilar'), Relationship(source=Node(id='Entityalignment', type='Concept', properties={'name': 'Entityalignment'}), target=Node(id='Llms', type='Concept', properties={'name': 'Llms'}), type='uses'), Relationship(source=Node(id='Llms', type='Concept', properties={'name': 'Llms'}), target=Node(id='Embeddings', type='Concept', properties={'name': 'Embeddings'}), type='spurs')] source=Document(page_content=' single\nstandard for the construction or\nrepresentation of know ledge\ngraph exists, resolving which\nentities from disparate graphs\ncorrespond to the same real\nworld subject is a non-trivial\ntask. This task is know n as\nknowledge graph entity\nalignment, and is an active area\nof research.[29]\nStrategies for entity alignment generally seek to identify similar substructures, semantic relationships, shared\nattributes, or combinations of all three between two distinct know ledge graphs. Entity alignment methods\nuse these structural similarities between generally non-isomorphic graphs to predict which node s\ncorresponds  to the same entity.[30]\nThe recent successes of large langua ge models (LLMs), in particular their effectiveness at produc ing\nsyntactically meaningful embeddings, has spurred the use of LLMs in the task of entity alignment.[31]Entity alignment', metadata={'source': 'Knowledge_graph.pdf', 'page': 2})</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code> 71%|███████   | 12/17 [02:58&lt;00:59, 11.84s/it]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>nodes=[Node(id='Knowledgegraph', type='Concept', properties={'definition': 'A knowledge graph is a database that uses mathematical graphs to store and search data.', 'name': 'Knowledgegraph'}), Node(id='Conceptmap', type='Concept', properties={'definition': 'A concept map is a diagram showing relationships among concepts.', 'name': 'Conceptmap'}), Node(id='Formalsemantics', type='Concept', properties={'definition': 'Formal semantics is the study of meaning in natural languages.', 'name': 'Formalsemantics'}), Node(id='Graphdatabase', type='Concept', properties={'definition': 'A graph database is a database that uses mathematical graphs to store and search data.', 'name': 'Graphdatabase'}), Node(id='Knowledgegraphembedding', type='Concept', properties={'definition': 'Knowledge graph embedding is the dimensionality reduction of graph-based semantic data.', 'name': 'Knowledgegraphembedding'}), Node(id='Logicalgraph', type='Concept', properties={'definition': 'A logical graph is a type of diagrammatic or visual notation for logical expressions.', 'name': 'Logicalgraph'}), Node(id='Semanticintegration', type='Concept', properties={'definition': 'Semantic integration is the interrelating of information from diverse sources.', 'name': 'Semanticintegration'}), Node(id='Semantictechnology', type='Concept', properties={'definition': 'Semantic technology is technology that helps machines understand data.', 'name': 'Semantictechnology'}), Node(id='Topicmap', type='Concept', properties={'definition': 'A topic map is a knowledge organization system.', 'name': 'Topicmap'}), Node(id='Vadalog', type='Concept', properties={'definition': 'Vadalog is a type of Knowledge Graph Management System.', 'name': 'Vadalog'}), Node(id='Yago', type='Concept', properties={'definition': 'YAGO is an open-source information repository.', 'name': 'Yago'})] relationships=[] source=Document(page_content='As the amount of data stored in know ledge graphs grows, developing dependable methods for know ledge\ngraph entity alignment becomes an increasingly crucial step in the integration and cohesion of know ledge\ngraph da ta.\nConcept map – Diagram showing relationships among concepts\nFormal semantics (natural language) – Study of meaning in natural languages\nGraph database – Database that uses mathematical graphs to store and search data\nKnowledge graph embedding – Dimensionality reduction of graph-based semantic data\nobjects [machine learning task]\nLogical graph – Type of diagrammatic or visual notation for logical expressions\nSemantic integration – Interrelating info from diverse sources\nSemantic technology – Technology to help machines understand data\nTopic map – Knowledge organization system\nVadalog – Type of Knowledge Graph Management System\nYAGO (database) – Open-source information repository\n1. "What is a Knowledge Graph?" (https://ontotext.com/knowledgehub/fundamentals/what', metadata={'source': 'Knowledge_graph.pdf', 'page': 3})
+nodes=[Node(id='Knowledgegraph', type='Concept', properties={'definition': 'A knowledge graph is a structured representation of knowledge that captures entities, their attributes, and the relationships between them.', 'source': 'https://ontotext.com/knowledgehub/fundamentals/what-is-a-knowledge-graph', 'name': 'Knowledgegraph'}), Node(id='Knowledgegraphdefinition', type='Definition', properties={'source': 'https://www.atulhost.com/what-is-knowledge-graph', 'name': 'Knowledgegraphdefinition'}), Node(id='Knowledgegraphpaper', type='Paper', properties={'title': 'Towards a Definition of Knowledge Graphs', 'authors': 'Lisa Ehrlinger, Wolfram Wöß', 'conference': 'SEMANTiCS2016', 'source': 'http://ceur-ws.org/Vol-1695/paper4.pdf', 'name': 'Knowledgegraphpaper'}), Node(id='Publicprocurement', type='Concept', properties={'description': 'Public procurement refers to the process by which government agencies purchase goods, services, or works from external suppliers.', 'name': 'Publicprocurement'}), Node(id='Publicprocurementenhancement', type='Article', properties={'title': 'Enhancing Public Procurement in the European Union', 'author': 'Ahmet Soylu', 'year': '2020', 'name': 'Publicprocurementenhancement'})] relationships=[Relationship(source=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), target=Node(id='Knowledgegraphdefinition', type='Definition', properties={'name': 'Knowledgegraphdefinition'}), type='hasDefinition'), Relationship(source=Node(id='Knowledgegraph', type='Concept', properties={'name': 'Knowledgegraph'}), target=Node(id='Knowledgegraphpaper', type='Paper', properties={'name': 'Knowledgegraphpaper'}), type='hasPaper'), Relationship(source=Node(id='Publicprocurement', type='Concept', properties={'name': 'Publicprocurement'}), target=Node(id='Publicprocurementenhancement', type='Article', properties={'name': 'Publicprocurementenhancement'}), type='hasEnhancement')] source=Document(page_content=' Knowledge Graph?" (https://ontotext.com/knowledgehub/fundamentals/what-is-a-\nknowledge-graph). 2018.\n2. "What defines a knowledge graph?" (https://www.atulhost.com/what-is-knowledge-graph).\n2020.\n3. Ehrlinger, Lisa; Wöß, Wolfram (2016). Towards a Definition of Knowledge Graphs (http://ceur\n-ws.org/Vol-1695/paper4.pdf) (PDF). SEMANTiCS2016. Leipzig: Joint Proceedings of the\nPosters and Demos Track of 12th International Conference on Semantic Systems –\nSEMANTiCS2016 and 1st International Workshop on Semantic Change &amp; Evolving\nSemantics (SuCCESS16). pp. 13–16.\n4. Soylu, Ahmet (2020). "Enhancing Public Procurement in the European Union', metadata={'source': 'Knowledge_graph.pdf', 'page': 3})</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code> 82%|████████▏ | 14/17 [03:15&lt;00:30, 10.05s/it]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>nodes=[Node(id='Ahmet Soylu', type='Person', properties={'name': 'Ahmet Soylu', 'publication': 'Enhancing Public Procurement in the European Union Through Constructing and Exploiting an Integrated Knowledge Graph', 'publicationyear': '2020', 'conference': 'The Semantic Web – ISWC 2020', 'book': 'Lecture Notes in Computer Science', 'volume': '12507', 'pages': '430–446', 'doi': '10.1007/978-3-030-62466-8_27', 'isbn': '978-3-030-62465-1', 's2cid': '226229398'}), Node(id='Sameh K. Mohamed', type='Person', properties={'name': 'Sameh K. Mohamed'}), Node(id='Aayah Nounu', type='Person', properties={'name': 'Aayah Nounu'}), Node(id='Ví Nováček', type='Person', properties={'name': 'Ví Nováček'})] relationships=[] source=Document(page_content='. Soylu, Ahmet (2020). "Enhancing Public Procurement in the European Union Through\nConstructing and Exploiting an Integrated Knowledge Graph" (https://doi.org/10.1007/978-3-\n030-62466-8_27). The Semantic Web – ISWC 2020. Lecture Notes in Computer Science.\nVol. 12507. pp. 430–446. doi:10.1007/978-3-030-62466-8_27 (https://doi.org/10.1007%2F97\n8-3-030-62466-8_27). ISBN 978-3-030-62465-1. S2CID 226229398 (https://api.semanticsch\nolar.org/CorpusID:226229398).\n5. Mohamed, Sameh K.; Nounu, Aayah; Nováček, Ví', metadata={'source': 'Knowledge_graph.pdf', 'page': 3})
+nodes=[Node(id='Sameh K.', type='Person', properties={'name': 'Sameh K.'}), Node(id='Nounu, Aayah', type='Person', properties={'name': 'Nounu, Aayah'}), Node(id='Nováček, Vít', type='Person', properties={'name': 'Nováček, Vít'}), Node(id='Biological Applications Of Knowledge Graph Embedding Models', type='Article', properties={'title': 'Biological applications of knowledge graph embedding models', 'year': '2021', 'journal': 'Briefings in Bioinformatics', 'volume': '22', 'issue': '2', 'pages': '1679–1693', 'doi': '10.1093/bib/bbaa012', 'hdl': '1983/919db5c6-6e10-4277-9ff9-f86bbcedcee8', 'pmid': '32065227', 'name': 'Biological Applications Of Knowledge Graph Embedding Models'})] relationships=[] source=Document(page_content=', Sameh K.; Nounu, Aayah; Nováček, Vít (2021). "Biological applications of\nknowledge graph embedding models" (https://doi.org/10.1093%2Fbib%2Fbbaa012).\nBriefings in Bioinformatics. 22 (2): 1679–1693. doi:10.1093/bib/bbaa012 (https://doi.org/10.1\n093%2Fbib%2Fbbaa012). hdl:1983/919db5c6-6e10-4277-9ff9-f86bbcedcee8 (https://hdl.ha\nndle.net/1983%2F919db5c6-6e10-4277-9ff9-f86bbcedcee8). PMID 32065227 (', metadata={'source': 'Knowledge_graph.pdf', 'page': 3})</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code> 88%|████████▊ | 15/17 [03:19&lt;00:16,  8.48s/it]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>nodes=[Node(id='277-9Ff9-F86Bbcedcee8', type='Pmid', properties={'name': '277-9Ff9-F86Bbcedcee8'}), Node(id='32065227', type='Url', properties={'link': 'https://pubmed.ncbi.nlm.nih.gov/32065227', 'name': '32065227'}), Node(id='Edward W. Schneider', type='Person', properties={'name': 'Edward W. Schneider'}), Node(id='1973', type='Year', properties={'name': '1973'}), Node(id='Course Modularization Applied: The Interface System And Its Implications For Sequence Control And Data Analysis', type='Publication', properties={'conference': 'Association for the Development of Instructional Systems (ADIS)', 'location': 'Chicago, Illinois', 'date': 'April 1972', 'name': 'Course Modularization Applied: The Interface System And Its Implications For Sequence Control And Data Analysis'}), Node(id='Us Trademark No 75589756', type='Trademark', properties={'link': 'http://tmsearch.uspto.gov/bin/showfield?f=doc&amp;state=4809:rjqm9h.2.1', 'name': 'Us Trademark No 75589756'}), Node(id='Amit Singhal', type='Person', properties={'date': 'May 16, 2012', 'name': 'Amit Singhal'}), Node(id='Introducing The Knowledge Graph: Things, Not Strings', type='Article', properties={'link': 'https://googleblog.blogspot.com/2012/05/introducing-knowledge-graph-things-not', 'name': 'Introducing The Knowledge Graph: Things, Not Strings'})] relationships=[] source=Document(page_content='277-9ff9-f86bbcedcee8). PMID 32065227 (https://pubme\nd.ncbi.nlm.nih.gov/32065227) – via Oxford Academic.\n6. Edward W. Schneider. 1973. Course Modularization Applied: The Interface System and Its\nImplications For Sequence Control and Data Analysis. In Association for the Development of\nInstructional Systems (ADIS), Chicago, Illinois, April 1972\n7. "US Trademark no 75589756" (http://tmsearch.uspto.gov/bin/showfield?f=doc&amp;state=4809:rj\nqm9h.2.1).\n8. Singhal, Amit (May 16, 2012). "Introducing the Knowledge Graph: things, not strings" (https://\ngoogleblog.blogspot.com/2012/05/introducing-knowledge-graph-things-not.', metadata={'source': 'Knowledge_graph.pdf', 'page': 3})</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>100%|██████████| 17/17 [03:28&lt;00:00, 12.26s/it]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>nodes=[Node(id='Google Blog', type='Website', properties={'url': 'https://googleblog.blogspot.com/2012/05/introducing-knowledge-graph-things-not.html', 'source': 'Official Google Blog', 'retrieved': '21 March 2017', 'name': 'Google Blog'})] relationships=[] source=Document(page_content='.blogspot.com/2012/05/introducing-knowledge-graph-things-not.html). Official\nGoogle Blog. Retrieved 21 March 2017.See also\nReferences', metadata={'source': 'Knowledge_graph.pdf', 'page': 3})</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="zoomed-in-view-of-the-knowledge-graph" class="level2">
+<h2 class="anchored" data-anchor-id="zoomed-in-view-of-the-knowledge-graph">Zoomed-in view of the Knowledge Graph</h2>
+<p><img src="bloom-visualisation2.png" class="img-fluid"></p>
+</section>
+<section id="larger-graph-view-from-single-wikipedia-page" class="level2">
+<h2 class="anchored" data-anchor-id="larger-graph-view-from-single-wikipedia-page">Larger graph view from single wikipedia page</h2>
+<p><img src="bloom-visualisation.png" class="img-fluid"></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

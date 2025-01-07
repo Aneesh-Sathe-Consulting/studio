@@ -2,9 +2,15 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/post-with-code/index.html",
-      "/posts/welcome/index.html",
-      "/posts/1 Agentic Regression/Agentic Regression.html"
+      "/posts/2 Two Agent Task Decomposition/AI Auto Blog Post Logistic Regression.html",
+      "/posts/3 Group Task Decomp/Group_chat.html",
+      "/posts/7 Auto KG Creation with LLMs/PDF_to_kg_using_OpenAI.html",
+      "/posts/6 Agentic KG explore for diseases/primekg.html",
+      "/posts/2 Two Agent Task Decomposition/Task Decomposition Using Two Agents.html",
+      "/posts/3 Group Task Decomp/group_chat_task_decomp.html",
+      "/posts/5 Knowledge Graphs RAG/FHIR-RAG.html",
+      "/posts/1 Agentic Regression/Agentic Regression.html",
+      "/posts/4 Agentic RAG/Agentic_RAG.html"
     ]
   }
 ]
