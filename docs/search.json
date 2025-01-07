@@ -4,7 +4,7 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "About this blog"
+    "text": "Welcome to Aneesh’s AI Studio!\nThis little area serves as a showcase for some of the explorations and experiments in AI. Agents are unlocking a fun new world, and I’m exploring.\nNota bene: This is an AI Studio - it’s messy! All of the code and projects are explorations and not packaged for reuse or learning."
   },
   {
     "objectID": "index.html",
@@ -340,6 +340,6 @@
     "href": "README_to_publish.html",
     "title": "How to publish this site",
     "section": "",
-    "text": "How to publish this site\nDon’t commit entire set of files only the docs folder as below.\nquarto render\ngit add docs\ngit commit -m \"Publish site to docs/\"\ngit push"
+    "text": "How to publish this site\nDon’t commit entire set of files only the docs folder as below.\nquarto render\ngit add docs\ngit commit -S -m \"Publish site to docs/\"\ngit push"
   }
 ]
