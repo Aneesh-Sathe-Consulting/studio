@@ -1,0 +1,23 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Studio"
+  
+  navbar:
+    logo: logo.png
+    right:
+      - about.qmd
+      - icon: wordpress
+        href: https://aneeshsathe.com
+      - icon: linkedin
+        href: https://linkedin.com/in/aneeshsathe
+      - icon: github
+        href: https://github.com/aneeshsathe
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    css: styles.css

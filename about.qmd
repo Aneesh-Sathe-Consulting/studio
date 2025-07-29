@@ -1,0 +1,24 @@
+---
+title: "About"
+image: IMG_0621.jpeg
+about:
+  template: jolla
+  links:
+    - icon: wordpress
+      text: website
+      href: https://aneeshsathe.com
+    - icon: linkedin
+      text: LinkedIn
+      href: https://linkedin.com/in/aneeshsathe
+    - icon: github
+      text: Github
+      href: https://github.com/aneeshsathe
+
+---
+# Welcome to Aneesh's AI Studio!
+
+This little area serves as a showcase for some of the explorations and experiments in AI. Agents are unlocking a fun new world, and I'm exploring.
+
+Nota bene: This is an AI Studio - it's messy! 
+
+None of the code or projects are explorations are packaged for reuse or learning.
