@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "Studio",
     "section": "",
-    "text": "Blog Post: Analyzing the Iris Dataset with Logistic Regression\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nBuilding an Image Classifier for Flower Recognition: A Journey with TensorFlow and Keras\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAuto Creating Knowledge Graphs from PDF files using LLMs\n\n\n\n\n\n\nAI-agents\n\n\nAI\n\n\nanalysis\n\n\nFHIR\n\n\nKnowledgeGraphs\n\n\nLLMs\n\n\n\n\n\n\n\n\n\nApr 30, 2024\n\n\nAneesh Sathe\n\n\n\n\n\n\n\n\n\n\n\n\nCreating a medical knowledge graph and exploring it with an LLM\n\n\n\n\n\n\nAI-agents\n\n\nAI\n\n\nanalysis\n\n\nFHIR\n\n\nKnowledgeGraphs\n\n\n\n\n\n\n\n\n\nApr 30, 2024\n\n\nAneesh Sathe\n\n\n\n\n\n\n\n\n\n\n\n\nTask Decomposition with Two Agents\n\n\n\n\n\n\nAI-agents\n\n\nAI\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nApr 30, 2024\n\n\nAneesh Sathe\n\n\n\n\n\n\n\n\n\n\n\n\nTask execution by a committee of AI agents\n\n\n\n\n\n\nAI-agents\n\n\nAI\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nApr 30, 2024\n\n\nAneesh Sathe\n\n\n\n\n\n\n\n\n\n\n\n\nRAG with FHIR\n\n\n\n\n\n\nAI-agents\n\n\nAI\n\n\nanalysis\n\n\nFHIR\n\n\nKnowledgeGraphs\n\n\n\n\n\n\n\n\n\nApr 30, 2024\n\n\nAneesh Sathe\n\n\n\n\n\n\n\n\n\n\n\n\nAgentic Regression\n\n\n\n\n\n\nAI-agents\n\n\nAI\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nApr 30, 2024\n\n\nAneesh Sathe\n\n\n\n\n\n\n\n\n\n\n\n\nAgentic RAG\n\n\n\n\n\n\nAI-agents\n\n\nAI\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nApr 30, 2024\n\n\nAneesh Sathe\n\n\n\n\n\n\nNo matching items"
+    "text": "Building an Image Classifier for Flower Recognition: A Journey with TensorFlow and Keras\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAuto Creating Knowledge Graphs from PDF files using LLMs\n\n\n\n\n\n\nAI-agents\n\n\nAI\n\n\nanalysis\n\n\nFHIR\n\n\nKnowledgeGraphs\n\n\nLLMs\n\n\n\n\n\n\n\n\n\nApr 30, 2024\n\n\nAneesh Sathe\n\n\n\n\n\n\n\n\n\n\n\n\nCreating a medical knowledge graph and exploring it with an LLM\n\n\n\n\n\n\nAI-agents\n\n\nAI\n\n\nanalysis\n\n\nFHIR\n\n\nKnowledgeGraphs\n\n\n\n\n\n\n\n\n\nApr 30, 2024\n\n\nAneesh Sathe\n\n\n\n\n\n\n\n\n\n\n\n\nTask Decomposition with Two Agents\n\n\n\n\n\n\nAI-agents\n\n\nAI\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nApr 30, 2024\n\n\nAneesh Sathe\n\n\n\n\n\n\n\n\n\n\n\n\nTask Decomposition with Two Agents\n\n\n\n\n\n\nAI-agents\n\n\nAI\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nApr 30, 2024\n\n\nAneesh Sathe\n\n\n\n\n\n\n\n\n\n\n\n\nTask execution by a committee of AI agents\n\n\n\n\n\n\nAI-agents\n\n\nAI\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nApr 30, 2024\n\n\nAneesh Sathe\n\n\n\n\n\n\n\n\n\n\n\n\nRAG with FHIR\n\n\n\n\n\n\nAI-agents\n\n\nAI\n\n\nanalysis\n\n\nFHIR\n\n\nKnowledgeGraphs\n\n\n\n\n\n\n\n\n\nApr 30, 2024\n\n\nAneesh Sathe\n\n\n\n\n\n\n\n\n\n\n\n\nAgentic Regression\n\n\n\n\n\n\nAI-agents\n\n\nAI\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nApr 30, 2024\n\n\nAneesh Sathe\n\n\n\n\n\n\n\n\n\n\n\n\nAgentic RAG\n\n\n\n\n\n\nAI-agents\n\n\nAI\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nApr 30, 2024\n\n\nAneesh Sathe\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "old/post-with-code/index.html",
@@ -156,35 +156,35 @@
   {
     "objectID": "posts/2 Two Agent Task Decomposition/AI Auto Blog Post Logistic Regression.html",
     "href": "posts/2 Two Agent Task Decomposition/AI Auto Blog Post Logistic Regression.html",
-    "title": "Blog Post: Analyzing the Iris Dataset with Logistic Regression",
+    "title": "Task Decomposition with Two Agents",
     "section": "",
     "text": "Note: this blog post was generated almost entirely by AI ## Introduction The Iris dataset is one of the most popular datasets among data science enthusiasts and beginners alike. Consisting of 150 samples from three different species of Iris (Iris Setosa, Iris Versicolor, and Iris Virginica), the dataset contains measurements of sepals and petals that we will explore and model to predict species classification based on physical attributes.\n\n\n\n\nThe initial step in any data science project is to perform exploratory data analysis (EDA). For the Iris dataset, this involves summarizing statistics and visualizing data distributions:\n\nSummary Statistics: Provides insights into the mean, median, and standard deviation of petal and sepal dimensions across different species.\nVisual Analysis: Histograms and scatter plots reveal the distribution of data and the relationship between features.\n\nHistograms showed the petal lengths and widths are particularly distinct among the species, which suggests good classification potential using these features.\n\n\n\n Histogram showing the distribution of features in the Iris dataset.\n Box Plots showing the variation of features in the Iris dataset.\n Pair Plots showing the relative comparison of features in the Iris dataset.\n\n\n\n\n\n\nTo classify the Iris species based on the measurements, a logistic regression model was developed. This model type was chosen for its efficiency and interpretability in binary and multi-class classifications.\n\n\n\nThe dataset was split into an 80/20 training-test ratio. The logistic regression model was trained on the standardized features for better accuracy and tested to evaluate its performance.\n\n\n\nThe logistic regression model achieved a 100% accuracy rate on the test set:\n Confusion Matrix of the logistic regression model. Accuracy: 1.0\nThis result indicates perfect classification of all test samples.\n\n\n\n\nVisualizing decision boundaries provides insight into how the logistic regression model interprets the data.\n Decision boundaries showing how the logistic regression model classifies the Iris species based on petal length and width.\nThe plot shows clear separation between species, aligning with the high accuracy observed in model evaluation.\n\n\n\nThis analysis demonstrates the capability of logistic regression for species classification in the Iris dataset, highlighting the importance of feature selection and model evaluation in machine learning workflows. Future work could explore other models like support vector machines or neural networks for comparison.\nKeywords: Iris dataset, exploratory data analysis, logistic regression model, decision boundaries, data science, species classification."
   },
   {
     "objectID": "posts/2 Two Agent Task Decomposition/AI Auto Blog Post Logistic Regression.html#exploratory-data-analysis-eda",
     "href": "posts/2 Two Agent Task Decomposition/AI Auto Blog Post Logistic Regression.html#exploratory-data-analysis-eda",
-    "title": "Blog Post: Analyzing the Iris Dataset with Logistic Regression",
+    "title": "Task Decomposition with Two Agents",
     "section": "",
     "text": "The initial step in any data science project is to perform exploratory data analysis (EDA). For the Iris dataset, this involves summarizing statistics and visualizing data distributions:\n\nSummary Statistics: Provides insights into the mean, median, and standard deviation of petal and sepal dimensions across different species.\nVisual Analysis: Histograms and scatter plots reveal the distribution of data and the relationship between features.\n\nHistograms showed the petal lengths and widths are particularly distinct among the species, which suggests good classification potential using these features.\n\n\n\n Histogram showing the distribution of features in the Iris dataset.\n Box Plots showing the variation of features in the Iris dataset.\n Pair Plots showing the relative comparison of features in the Iris dataset."
   },
   {
     "objectID": "posts/2 Two Agent Task Decomposition/AI Auto Blog Post Logistic Regression.html#logistic-regression-model",
     "href": "posts/2 Two Agent Task Decomposition/AI Auto Blog Post Logistic Regression.html#logistic-regression-model",
-    "title": "Blog Post: Analyzing the Iris Dataset with Logistic Regression",
+    "title": "Task Decomposition with Two Agents",
     "section": "",
     "text": "To classify the Iris species based on the measurements, a logistic regression model was developed. This model type was chosen for its efficiency and interpretability in binary and multi-class classifications.\n\n\n\nThe dataset was split into an 80/20 training-test ratio. The logistic regression model was trained on the standardized features for better accuracy and tested to evaluate its performance.\n\n\n\nThe logistic regression model achieved a 100% accuracy rate on the test set:\n Confusion Matrix of the logistic regression model. Accuracy: 1.0\nThis result indicates perfect classification of all test samples."
   },
   {
     "objectID": "posts/2 Two Agent Task Decomposition/AI Auto Blog Post Logistic Regression.html#decision-boundary-visualization",
     "href": "posts/2 Two Agent Task Decomposition/AI Auto Blog Post Logistic Regression.html#decision-boundary-visualization",
-    "title": "Blog Post: Analyzing the Iris Dataset with Logistic Regression",
+    "title": "Task Decomposition with Two Agents",
     "section": "",
     "text": "Visualizing decision boundaries provides insight into how the logistic regression model interprets the data.\n Decision boundaries showing how the logistic regression model classifies the Iris species based on petal length and width.\nThe plot shows clear separation between species, aligning with the high accuracy observed in model evaluation."
   },
   {
     "objectID": "posts/2 Two Agent Task Decomposition/AI Auto Blog Post Logistic Regression.html#conclusion",
     "href": "posts/2 Two Agent Task Decomposition/AI Auto Blog Post Logistic Regression.html#conclusion",
-    "title": "Blog Post: Analyzing the Iris Dataset with Logistic Regression",
+    "title": "Task Decomposition with Two Agents",
     "section": "",
     "text": "This analysis demonstrates the capability of logistic regression for species classification in the Iris dataset, highlighting the importance of feature selection and model evaluation in machine learning workflows. Future work could explore other models like support vector machines or neural networks for comparison.\nKeywords: Iris dataset, exploratory data analysis, logistic regression model, decision boundaries, data science, species classification."
   },
@@ -340,6 +340,13 @@
     "href": "README_to_publish.html",
     "title": "How to publish this site",
     "section": "",
-    "text": "How to publish this site\nDon’t commit entire set of files only the docs folder as below.\nquarto render\ngit add docs\ngit commit -S -m \"Publish site to docs/\"\ngit push"
+    "text": "Don’t commit entire set of files only the docs folder as below.\nquarto render\ngit add docs\ngit commit -S -m \"Publish site to docs/\"\ngit push\n\n\nhttps://quarto.org/docs/blog/posts/2022-02-17-advanced-layout/"
+  },
+  {
+    "objectID": "README_to_publish.html#margin-notes",
+    "href": "README_to_publish.html#margin-notes",
+    "title": "How to publish this site",
+    "section": "",
+    "text": "https://quarto.org/docs/blog/posts/2022-02-17-advanced-layout/"
   }
 ]
