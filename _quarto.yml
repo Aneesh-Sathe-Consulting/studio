@@ -16,6 +16,9 @@ website:
         href: https://linkedin.com/in/aneeshsathe
       - icon: github
         href: https://github.com/aneeshsathe
+      - icon: rss
+        href: index.xml
+        aria-label: RSS feed
 format:
   html:
     theme:
