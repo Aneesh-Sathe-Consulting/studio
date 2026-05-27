@@ -5,6 +5,10 @@ listing:
   sort: "date desc"
   type: default
   categories: true
+  feed:
+    title: "Studio"
+    description: "AI studio explorations and experiments by Aneesh Sathe."
+    language: "en-us"
   sort-ui: false
   filter-ui: false
 page-layout: full

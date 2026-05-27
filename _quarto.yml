@@ -4,6 +4,7 @@ project:
 
 website:
   title: "Studio"
+  site-url: https://studio.aneeshsathe.com
   
   navbar:
     logo: logo.png
@@ -21,3 +22,6 @@ format:
       light: flatly
       dark: darkly
     css: styles.css
+
+resources:
+  - CNAME
