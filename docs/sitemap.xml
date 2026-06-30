@@ -1,11 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://studio.aneeshsathe.com/about.html</loc>
+    <lastmod>2025-07-29T06:51:12.072Z</lastmod>
+  </url>
+  <url>
     <loc>https://studio.aneeshsathe.com/index.html</loc>
-    <lastmod>2026-06-30T05:04:21.183Z</lastmod>
+    <lastmod>2026-06-30T05:44:06.205Z</lastmod>
+  </url>
+  <url>
+    <loc>https://studio.aneeshsathe.com/old/post-with-code/index.html</loc>
+    <lastmod>2025-07-29T06:51:12.077Z</lastmod>
+  </url>
+  <url>
+    <loc>https://studio.aneeshsathe.com/posts/1 Agentic Regression/Agentic Regression.html</loc>
+    <lastmod>2026-06-30T05:49:55.329Z</lastmod>
+  </url>
+  <url>
+    <loc>https://studio.aneeshsathe.com/posts/3 Group Task Decomp/group_chat_task_decomp.html</loc>
+    <lastmod>2026-06-30T05:49:55.331Z</lastmod>
+  </url>
+  <url>
+    <loc>https://studio.aneeshsathe.com/posts/2 Two Agent Task Decomposition/Task Decomposition Using Two Agents.html</loc>
+    <lastmod>2026-06-30T05:49:55.330Z</lastmod>
+  </url>
+  <url>
+    <loc>https://studio.aneeshsathe.com/posts/7 Auto KG Creation with LLMs/PDF_to_kg_using_OpenAI.html</loc>
+    <lastmod>2026-06-30T05:49:55.333Z</lastmod>
   </url>
   <url>
     <loc>https://studio.aneeshsathe.com/posts/8 Causality From Day One/Causality Belongs From Day One.html</loc>
     <lastmod>2026-06-30T05:19:26.752Z</lastmod>
+  </url>
+  <url>
+    <loc>https://studio.aneeshsathe.com/posts/6 Agentic KG explore for diseases/primekg.html</loc>
+    <lastmod>2026-06-30T05:49:55.333Z</lastmod>
+  </url>
+  <url>
+    <loc>https://studio.aneeshsathe.com/posts/2 Two Agent Task Decomposition/AI Auto Blog Post Logistic Regression.html</loc>
+    <lastmod>2026-06-30T05:49:55.330Z</lastmod>
+  </url>
+  <url>
+    <loc>https://studio.aneeshsathe.com/posts/3 Group Task Decomp/Group_chat.html</loc>
+    <lastmod>2026-06-30T05:49:55.334Z</lastmod>
+  </url>
+  <url>
+    <loc>https://studio.aneeshsathe.com/posts/5 Knowledge Graphs RAG/FHIR-RAG.html</loc>
+    <lastmod>2026-06-30T05:49:55.332Z</lastmod>
+  </url>
+  <url>
+    <loc>https://studio.aneeshsathe.com/posts/4 Agentic RAG/Agentic_RAG.html</loc>
+    <lastmod>2026-06-30T05:49:55.332Z</lastmod>
+  </url>
+  <url>
+    <loc>https://studio.aneeshsathe.com/old/welcome/index.html</loc>
+    <lastmod>2025-07-29T06:51:12.077Z</lastmod>
+  </url>
+  <url>
+    <loc>https://studio.aneeshsathe.com/README_to_publish.html</loc>
+    <lastmod>2025-07-29T06:51:12.071Z</lastmod>
   </url>
 </urlset>
