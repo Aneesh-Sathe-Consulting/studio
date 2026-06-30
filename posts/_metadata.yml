@@ -9,3 +9,7 @@ title-block-banner: true
 
 # License (CC BY 4.0) — applies to all posts; required for Rogue Scholar DOIs
 license: "CC BY"
+
+# Emit Google Scholar citation meta tags (incl. citation_doi) so the DOI is
+# machine-readable on the page — lets Rogue Scholar adopt our self-minted DOI.
+google-scholar: true
