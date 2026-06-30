@@ -1,6 +1,8 @@
 project:
   type: website
   output-dir: docs
+  pre-render:
+    - _scripts/mint_dois.py
 
 website:
   title: "Studio"

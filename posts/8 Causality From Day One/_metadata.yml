@@ -1,0 +1,7 @@
+# Post 1 was published before the self-mint pipeline existed, so Rogue Scholar
+# generates its DOI. Once it appears on your Rogue Scholar blog page, paste it
+# below and delete the mint_doi line — it then becomes permanent and the
+# pre-render script will leave it alone:
+#
+# doi: "10.59350/xxxxx-xxxxx"
+mint_doi: false
