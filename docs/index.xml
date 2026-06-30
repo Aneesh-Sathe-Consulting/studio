@@ -15,7 +15,7 @@
 <item>
   <title>Causality Belongs in Your Biotech From Day One</title>
   <dc:creator>Aneesh Sathe</dc:creator>
-  <link>https://studio.aneeshsathe.com/posts/8 Causality From Day One/Causality Belongs From Day One.html</link>
+  <link>https://studio.aneeshsathe.com/posts/causality-from-day-one/</link>
   <description><![CDATA[ 
 
 
@@ -56,7 +56,7 @@
   author = {Sathe, Aneesh},
   title = {Causality {Belongs} in {Your} {Biotech} {From} {Day} {One}},
   date = {2026-06-29},
-  url = {https://studio.aneeshsathe.com/posts/8 Causality From Day One/Causality Belongs From Day One.html},
+  url = {https://studio.aneeshsathe.com/posts/causality-from-day-one/},
   doi = {10.59350/y7czn-8d6kf},
   langid = {en}
 }
@@ -67,14 +67,14 @@ One.”</span> June 29, 2026. <a href="https://doi.org/10.59350/y7czn-8d6kf">htt
   <category>causality</category>
   <category>biotech</category>
   <category>data-science</category>
-  <guid>https://studio.aneeshsathe.com/posts/8 Causality From Day One/Causality Belongs From Day One.html</guid>
+  <guid>https://studio.aneeshsathe.com/posts/causality-from-day-one/</guid>
   <pubDate>Mon, 29 Jun 2026 07:00:00 GMT</pubDate>
-  <media:content url="https://studio.aneeshsathe.com/posts/8 Causality From Day One/kandinsky-composition-viii.jpg" medium="image" type="image/jpeg"/>
+  <media:content url="https://studio.aneeshsathe.com/posts/causality-from-day-one/kandinsky-composition-viii.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
   <title>Auto Creating Knowledge Graphs from PDF files using LLMs</title>
   <dc:creator>Aneesh Sathe</dc:creator>
-  <link>https://studio.aneeshsathe.com/posts/7 Auto KG Creation with LLMs/PDF_to_kg_using_OpenAI.html</link>
+  <link>https://studio.aneeshsathe.com/posts/auto-kg-creation-llms/</link>
   <description><![CDATA[ 
 
 
@@ -948,11 +948,11 @@ nodes=[Node(id='Sameh K.', type='Person', properties={'name': 'Sameh K.'}), Node
 </section>
 <section id="zoomed-in-view-of-the-knowledge-graph" class="level2">
 <h2 class="anchored" data-anchor-id="zoomed-in-view-of-the-knowledge-graph">Zoomed-in view of the Knowledge Graph</h2>
-<p><img src="https://studio.aneeshsathe.com/posts/7 Auto KG Creation with LLMs/bloom-visualisation2.png" class="img-fluid"></p>
+<p><img src="https://studio.aneeshsathe.com/posts/auto-kg-creation-llms/bloom-visualisation2.png" class="img-fluid"></p>
 </section>
 <section id="larger-graph-view-from-single-wikipedia-page" class="level2">
 <h2 class="anchored" data-anchor-id="larger-graph-view-from-single-wikipedia-page">Larger graph view from single wikipedia page</h2>
-<p><img src="https://studio.aneeshsathe.com/posts/7 Auto KG Creation with LLMs/bloom-visualisation.png" class="img-fluid"></p>
+<p><img src="https://studio.aneeshsathe.com/posts/auto-kg-creation-llms/bloom-visualisation.png" class="img-fluid"></p>
 
 
 </section>
@@ -965,14 +965,14 @@ nodes=[Node(id='Sameh K.', type='Person', properties={'name': 'Sameh K.'}), Node
   <category>FHIR</category>
   <category>KnowledgeGraphs</category>
   <category>LLMs</category>
-  <guid>https://studio.aneeshsathe.com/posts/7 Auto KG Creation with LLMs/PDF_to_kg_using_OpenAI.html</guid>
+  <guid>https://studio.aneeshsathe.com/posts/auto-kg-creation-llms/</guid>
   <pubDate>Thu, 15 Aug 2024 07:00:00 GMT</pubDate>
-  <media:content url="https://studio.aneeshsathe.com/posts/7 Auto KG Creation with LLMs/image_chestnut.jpg" medium="image" type="image/jpeg"/>
+  <media:content url="https://studio.aneeshsathe.com/posts/auto-kg-creation-llms/image_chestnut.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
   <title>Creating a medical knowledge graph and exploring it with an LLM</title>
   <dc:creator>Aneesh Sathe</dc:creator>
-  <link>https://studio.aneeshsathe.com/posts/6 Agentic KG explore for diseases/primekg.html</link>
+  <link>https://studio.aneeshsathe.com/posts/agentic-kg-diseases/</link>
   <description><![CDATA[ 
 
 
@@ -2168,14 +2168,14 @@ symptoms are concerning.</code></pre>
   <category>analysis</category>
   <category>FHIR</category>
   <category>KnowledgeGraphs</category>
-  <guid>https://studio.aneeshsathe.com/posts/6 Agentic KG explore for diseases/primekg.html</guid>
+  <guid>https://studio.aneeshsathe.com/posts/agentic-kg-diseases/</guid>
   <pubDate>Mon, 15 Jul 2024 07:00:00 GMT</pubDate>
-  <media:content url="https://studio.aneeshsathe.com/posts/6 Agentic KG explore for diseases/image_prime.jpg" medium="image" type="image/jpeg"/>
+  <media:content url="https://studio.aneeshsathe.com/posts/agentic-kg-diseases/image_prime.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
   <title>RAG with FHIR</title>
   <dc:creator>Aneesh Sathe</dc:creator>
-  <link>https://studio.aneeshsathe.com/posts/5 Knowledge Graphs RAG/FHIR-RAG.html</link>
+  <link>https://studio.aneeshsathe.com/posts/knowledge-graphs-rag/</link>
   <description><![CDATA[ 
 
 
@@ -2789,14 +2789,14 @@ Human: What was the blood pressure?
   <category>analysis</category>
   <category>FHIR</category>
   <category>KnowledgeGraphs</category>
-  <guid>https://studio.aneeshsathe.com/posts/5 Knowledge Graphs RAG/FHIR-RAG.html</guid>
+  <guid>https://studio.aneeshsathe.com/posts/knowledge-graphs-rag/</guid>
   <pubDate>Sat, 15 Jun 2024 07:00:00 GMT</pubDate>
-  <media:content url="https://studio.aneeshsathe.com/posts/5 Knowledge Graphs RAG/image_RAG.jpg" medium="image" type="image/jpeg"/>
+  <media:content url="https://studio.aneeshsathe.com/posts/knowledge-graphs-rag/image_RAG.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
   <title>Agentic RAG</title>
   <dc:creator>Aneesh Sathe</dc:creator>
-  <link>https://studio.aneeshsathe.com/posts/4 Agentic RAG/Agentic_RAG.html</link>
+  <link>https://studio.aneeshsathe.com/posts/agentic-rag/</link>
   <description><![CDATA[ 
 
 
@@ -3343,14 +3343,14 @@ Understanding and adapting to these changes is crucial for startups in the LDT s
   <category>AI-agents</category>
   <category>AI</category>
   <category>analysis</category>
-  <guid>https://studio.aneeshsathe.com/posts/4 Agentic RAG/Agentic_RAG.html</guid>
+  <guid>https://studio.aneeshsathe.com/posts/agentic-rag/</guid>
   <pubDate>Mon, 13 May 2024 07:00:00 GMT</pubDate>
-  <media:content url="https://studio.aneeshsathe.com/posts/4 Agentic RAG/image_agent.jpg" medium="image" type="image/jpeg"/>
+  <media:content url="https://studio.aneeshsathe.com/posts/agentic-rag/image_agent.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
   <title>Task execution by a committee of AI agents</title>
   <dc:creator>Aneesh Sathe</dc:creator>
-  <link>https://studio.aneeshsathe.com/posts/3 Group Task Decomp/group_chat_task_decomp.html</link>
+  <link>https://studio.aneeshsathe.com/posts/group-task-decomposition/</link>
   <description><![CDATA[ 
 
 
@@ -3371,7 +3371,7 @@ Understanding and adapting to these changes is crucial for startups in the LDT s
 <p>In this task very little input from the Admin was needed and the model performed quite well for something which was run for a short time as a test.</p>
 <p>The interesting bit in this trial was we asked for the AI training code to be executed external to the chat with the agents and the agents then picked up the task after the model was trained.</p>
 <p>Next: Checkout the blog written about the process: <a href="https://ai.aneeshsathe.com/Group%20Task%20Decomp/Group_chat.html">Building an Image Classifier for Flower Recognition: A Journey with TensorFlow and Keras</a></p>
-<p><img src="https://studio.aneeshsathe.com/posts/3 Group Task Decomp/work_dir/fl1.jpg" class="img-fluid"> <img src="https://studio.aneeshsathe.com/posts/3 Group Task Decomp/work_dir/fl2.jpg" class="img-fluid"> <img src="https://studio.aneeshsathe.com/posts/3 Group Task Decomp/work_dir/fl3.jpg" class="img-fluid"> <img src="https://studio.aneeshsathe.com/posts/3 Group Task Decomp/work_dir/confusion_matrix.png" class="img-fluid"></p>
+<p><img src="https://studio.aneeshsathe.com/posts/group-task-decomposition/work_dir/fl1.jpg" class="img-fluid"> <img src="https://studio.aneeshsathe.com/posts/group-task-decomposition/work_dir/fl2.jpg" class="img-fluid"> <img src="https://studio.aneeshsathe.com/posts/group-task-decomposition/work_dir/fl3.jpg" class="img-fluid"> <img src="https://studio.aneeshsathe.com/posts/group-task-decomposition/work_dir/confusion_matrix.png" class="img-fluid"></p>
 <section id="environment-setup" class="level2">
 <h2 class="anchored" data-anchor-id="environment-setup">Environment Setup</h2>
 <div id="cell-5" class="cell" data-execution_count="1">
@@ -4834,7 +4834,7 @@ font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Model trained and saved successfully."</span>)</span></code></pre></div>
 </div>
-<p><img src="https://studio.aneeshsathe.com/posts/3 Group Task Decomp/work_dir/training.png" class="img-fluid"></p>
+<p><img src="https://studio.aneeshsathe.com/posts/group-task-decomposition/work_dir/training.png" class="img-fluid"></p>
 <div id="cell-13" class="cell">
 <div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
@@ -5041,7 +5041,7 @@ font-style: inherit;">print</span>(classification_report(true_classes, predicted
 background-color: null;
 font-style: inherit;">=</span>class_labels))</span></code></pre></div>
 </div>
-<p><img src="https://studio.aneeshsathe.com/posts/3 Group Task Decomp/work_dir/confusion_matrix.png" class="img-fluid"></p>
+<p><img src="https://studio.aneeshsathe.com/posts/group-task-decomposition/work_dir/confusion_matrix.png" class="img-fluid"></p>
 
 
 </section>
@@ -5051,14 +5051,14 @@ font-style: inherit;">=</span>class_labels))</span></code></pre></div>
   <category>AI-agents</category>
   <category>AI</category>
   <category>analysis</category>
-  <guid>https://studio.aneeshsathe.com/posts/3 Group Task Decomp/group_chat_task_decomp.html</guid>
+  <guid>https://studio.aneeshsathe.com/posts/group-task-decomposition/</guid>
   <pubDate>Mon, 06 May 2024 07:00:00 GMT</pubDate>
-  <media:content url="https://studio.aneeshsathe.com/posts/3 Group Task Decomp/image_comittee.jpg" medium="image" type="image/jpeg"/>
+  <media:content url="https://studio.aneeshsathe.com/posts/group-task-decomposition/image_comittee.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
   <title>Task Decomposition with Two Agents</title>
   <dc:creator>Aneesh Sathe</dc:creator>
-  <link>https://studio.aneeshsathe.com/posts/2 Two Agent Task Decomposition/Task Decomposition Using Two Agents.html</link>
+  <link>https://studio.aneeshsathe.com/posts/two-agent-task-decomposition/</link>
   <description><![CDATA[ 
 
 
@@ -7213,14 +7213,14 @@ Great! I'm glad I could assist you with your project. If you have any more quest
   <category>AI-agents</category>
   <category>AI</category>
   <category>analysis</category>
-  <guid>https://studio.aneeshsathe.com/posts/2 Two Agent Task Decomposition/Task Decomposition Using Two Agents.html</guid>
+  <guid>https://studio.aneeshsathe.com/posts/two-agent-task-decomposition/</guid>
   <pubDate>Tue, 30 Apr 2024 07:00:00 GMT</pubDate>
-  <media:content url="https://studio.aneeshsathe.com/posts/2 Two Agent Task Decomposition/image_swans.jpg" medium="image" type="image/jpeg"/>
+  <media:content url="https://studio.aneeshsathe.com/posts/two-agent-task-decomposition/image_swans.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
   <title>Agentic Regression</title>
   <dc:creator>Aneesh Sathe</dc:creator>
-  <link>https://studio.aneeshsathe.com/posts/1 Agentic Regression/Agentic Regression.html</link>
+  <link>https://studio.aneeshsathe.com/posts/agentic-regression/</link>
   <description><![CDATA[ 
 
 
@@ -7728,7 +7728,7 @@ font-style: inherit;">"generated_code/logistic_reg_decision_boundaries.png"</spa
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 <figure class="figure">
-<p><img src="https://studio.aneeshsathe.com/posts/1 Agentic Regression/Agentic Regression_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="https://studio.aneeshsathe.com/posts/agentic-regression/index_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -7744,9 +7744,9 @@ font-style: inherit;">"generated_code/logistic_reg_decision_boundaries.png"</spa
   <category>AI-agents</category>
   <category>AI</category>
   <category>analysis</category>
-  <guid>https://studio.aneeshsathe.com/posts/1 Agentic Regression/Agentic Regression.html</guid>
+  <guid>https://studio.aneeshsathe.com/posts/agentic-regression/</guid>
   <pubDate>Fri, 15 Mar 2024 07:00:00 GMT</pubDate>
-  <media:content url="https://studio.aneeshsathe.com/posts/1 Agentic Regression/image-catocala.jpg" medium="image" type="image/jpeg"/>
+  <media:content url="https://studio.aneeshsathe.com/posts/agentic-regression/image-catocala.jpg" medium="image" type="image/jpeg"/>
 </item>
 </channel>
 </rss>

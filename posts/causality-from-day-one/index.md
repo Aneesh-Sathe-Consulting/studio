@@ -6,6 +6,8 @@ author:
 date: "2026-06-29"
 categories: [causality, biotech, data-science]
 image: "kandinsky-composition-viii.jpg"
+aliases:
+  - "/posts/8 Causality From Day One/Causality Belongs From Day One.html"
 ---
 
 Every decision in your biotech startup is based on a causal claim: "The compound works." "The assay predicts efficacy." "We should run the bigger study." Scientists often claim to not understand "business" but nothing has a larger effect than the core causal argument. The trouble starts when the people who could check those assumptions (your data science and stats team) are brought in only after the data has been collected. By then, what you are allowed to learn has already been decided.

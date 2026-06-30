@@ -6,8 +6,8 @@ listing:
     - "posts/**/*.md"
     - "posts/**/*.ipynb"
     # Hide AI-generated companion posts from the front page (still reachable by URL):
-    - "!posts/**/AI Auto Blog Post Logistic Regression.md"
-    - "!posts/**/Group_chat.md"
+    - "!posts/**/logistic-regression-writeup.md"
+    - "!posts/**/flower-classifier.md"
   sort: "date desc"
   type: default
   categories: true

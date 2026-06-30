@@ -2,14 +2,14 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/8 Causality From Day One/Causality Belongs From Day One.html",
-      "/posts/7 Auto KG Creation with LLMs/PDF_to_kg_using_OpenAI.html",
-      "/posts/6 Agentic KG explore for diseases/primekg.html",
-      "/posts/5 Knowledge Graphs RAG/FHIR-RAG.html",
-      "/posts/4 Agentic RAG/Agentic_RAG.html",
-      "/posts/3 Group Task Decomp/group_chat_task_decomp.html",
-      "/posts/2 Two Agent Task Decomposition/Task Decomposition Using Two Agents.html",
-      "/posts/1 Agentic Regression/Agentic Regression.html"
+      "/posts/causality-from-day-one/index.html",
+      "/posts/auto-kg-creation-llms/index.html",
+      "/posts/agentic-kg-diseases/index.html",
+      "/posts/knowledge-graphs-rag/index.html",
+      "/posts/agentic-rag/index.html",
+      "/posts/group-task-decomposition/index.html",
+      "/posts/two-agent-task-decomposition/index.html",
+      "/posts/agentic-regression/index.html"
     ]
   }
 ]
