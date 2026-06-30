@@ -11,7 +11,55 @@
 <description>AI studio explorations and experiments by Aneesh Sathe.</description>
 <language>en-us</language>
 <generator>quarto-1.6.40</generator>
-<lastBuildDate>Tue, 30 Apr 2024 07:00:00 GMT</lastBuildDate>
+<lastBuildDate>Mon, 29 Jun 2026 07:00:00 GMT</lastBuildDate>
+<item>
+  <title>Causality Belongs in Your Biotech From Day One</title>
+  <dc:creator>Aneesh Sathe</dc:creator>
+  <link>https://studio.aneeshsathe.com/posts/8 Causality From Day One/Causality Belongs From Day One.html</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>Every decision in your biotech startup is based on a causal claim: “The compound works.” “The assay predicts efficacy.” “We should run the bigger study.” Scientists often claim to not understand “business” but nothing has a larger effect than the core causal argument. The trouble starts when the people who could check those assumptions (your data science and stats team) are brought in only after the data has been collected. By then, what you are allowed to learn has already been decided.</p>
+<p>This is the most expensive mistake I see early biotechs make, and it has nothing to do with talent or tools. It is matter of workflow process and a sequencing.</p>
+<section id="designed-in-or-lost" class="level2">
+<h2 class="anchored" data-anchor-id="designed-in-or-lost">Designed in, or lost</h2>
+<p>Data does not contain causal information nor can you infer it from the patterns you see after the experiment is done. It is something you build into the experiment at the beginning. What you randomize, hold fixed, measured, or discarded as noise — those choices fix the set of questions the data can ever answer. A data scientist handed a finished dataset can only describe what is left. They cannot recover what went down the drain nor simulate an experiment.</p>
+<p>Concretely: two arms of an experiment differ in outcome. Was it the treatment — or was it that the treated samples were also the fresher ones, run on the better instrument, by the senior tech? If nobody logged instrument, batch, and operator, that question is now permanently unanswerable [btw your t-tests can’t even try to answer it]. The confounder is missing from the data because nobody decided, on day one, that it should be there.</p>
+</section>
+<section id="modeling-is-craft-not-a-button" class="level2">
+<h2 class="anchored" data-anchor-id="modeling-is-craft-not-a-button">Modeling is craft, not a button</h2>
+<p>Even with the right data, the work is never a single fit. You don’t simply throw it all in a pot and stir it, this isn’t witchcraft or <a href="https://xkcd.com/1838/">AI</a>. In their <em>Bayesian Workflow</em> paper, Gelman and colleagues are blunt: for any real problem you end up fitting many models. You build a simple one, run it forward to see whether it generates anything like real data, find it embarrassing, expand it, break the computation, fix the model rather than the computer, and go again. They are honest about the intermediate models too — “the hopelessly wrong models and the seriously flawed models are, in practice, unavoidable steps along the way toward fitting the useful models”.</p>
+<p>This is not a flowchart you can hand to an intern or an API. McElreath’s image is the one I keep returning to: a statistical model is a golem — powerful clay that does exactly what you build it to do, and not one thing more. Point it at the wrong question and it will answer the wrong question, confidently, with a tight interval. Someone who understands both the biology and the model has to herd the model and its friends. So, your whole team has to be involved when the experiment is designed, not when the results are due.</p>
+</section>
+<section id="why-an-llm-wont-save-you" class="level2">
+<h2 class="anchored" data-anchor-id="why-an-llm-wont-save-you">Why an LLM won’t save you</h2>
+<p>The hope, right now, is that a large enough model makes this discipline optional. Feed it everything; let it sort out cause and effect. It cannot — and not because today’s models are too small.</p>
+<p>Start with the data. Big data is still observational — proxy-ridden, collected for some other purpose, gathered without randomization. Scale multiplies whatever bias you began with. Data is dumb; it has no sense of causality, and more of it is still dumb.</p>
+<p>A language model is extraordinary at telling you what tends to follow what in the text it was trained on. That is association. It can recite the causal claims humans have already written down — researchers have a name for a system that talks causality fluently without doing it: a <em>causal parrot</em>. What it cannot do is know which variable in <em>your</em> assay is a confounder you must adjust for and which is a collider you must leave alone. That call needs domain knowledge (with the right tools AI can be immensely helpful, but only with the right tools) and a causal graph, and it cannot be automated or hand-waved away.</p>
+<p>None of this makes the model useless. It means the model can’t supply the one thing the work turns on — the causal call itself.</p>
+</section>
+<section id="the-fix-is-a-sequencing-fix" class="level2">
+<h2 class="anchored" data-anchor-id="the-fix-is-a-sequencing-fix">The fix is a sequencing fix</h2>
+<p>So put the causal thinking first, and put the people who do it in early. Better yet, learn it yourself, it isn’t difficult and enables you to make fun diagrams on a whiteboard! Get the biologists and the data scientists around one whiteboard and draw the graph representing what you believe causes what. It is the cheapest artifact in the building and the most revealing; what you leave off it matters as much as what you put on. The line I would frame from the <em>Bayesian Workflow</em> paper: a good model “is not specified from the outside; it emerges from engagement with the application and the available data”. That engagement has to begin while the experiment is still on the whiteboard.</p>
+<p>A data science team bolted on at the end can only audit a decision that has already been made. A data science team present at the start gets to decide what the company is <em>able</em> to learn. Those are not the same job, and only one of them is worth the salary. The golem will build whatever you point it at; someone has to choose the target.</p>
+<p>Which raises the question the hype keeps dodging, and the one the next post takes up: if not prediction, then what?</p>
+<hr>
+<p><small>Cover: Wassily Kandinsky, <em>Composition VIII</em> (1923). Public domain.</small></p>
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section></div> ]]></description>
+  <category>causality</category>
+  <category>biotech</category>
+  <category>data-science</category>
+  <guid>https://studio.aneeshsathe.com/posts/8 Causality From Day One/Causality Belongs From Day One.html</guid>
+  <pubDate>Mon, 29 Jun 2026 07:00:00 GMT</pubDate>
+  <media:content url="https://studio.aneeshsathe.com/posts/8 Causality From Day One/kandinsky-composition-viii.jpg" medium="image" type="image/jpeg"/>
+</item>
 <item>
   <title>Auto Creating Knowledge Graphs from PDF files using LLMs</title>
   <dc:creator>Aneesh Sathe</dc:creator>
@@ -4349,64 +4397,6 @@ Great! I'm glad I could assist you with your project. If you have any more quest
 <item>
   <title>Task execution by a committee of AI agents</title>
   <dc:creator>Aneesh Sathe</dc:creator>
-  <link>https://studio.aneeshsathe.com/posts/3 Group Task Decomp/Group_chat.html</link>
-  <description><![CDATA[ 
-
-
-
-
-
-<section id="building-an-image-classifier-for-flower-recognition-a-journey-with-tensorflow-and-keras" class="level1">
-<h1>Building an Image Classifier for Flower Recognition: A Journey with TensorFlow and Keras</h1>
-<p><em>Note: Most of this post was generated by AI!</em></p>
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>In the ever-evolving field of artificial intelligence, image classification has taken a pivotal role in making sense of visual data. This project revolves around creating a model that can accurately classify images of flowers. We used TensorFlow and Keras, popular libraries in the deep learning community, to achieve this goal. This blog post outlines the steps taken from data analysis to model evaluation, the challenges we faced, and the solutions we implemented.</p>
-<p><img src="https://studio.aneeshsathe.com/posts/3 Group Task Decomp/work_dir/fl1.jpg" class="img-fluid"> <img src="https://studio.aneeshsathe.com/posts/3 Group Task Decomp/work_dir/fl2.jpg" class="img-fluid"> <img src="https://studio.aneeshsathe.com/posts/3 Group Task Decomp/work_dir/fl3.jpg" class="img-fluid"></p>
-</section>
-<section id="dataset-overview" class="level2">
-<h2 class="anchored" data-anchor-id="dataset-overview">Dataset Overview</h2>
-<p>The project utilized a publicly available flower dataset, which was structured into three main categories: training, validation, and test sets. Each category contained subfolders representing different flower classes such as roses, tulips, and daisies, among others. A total of over 3,000 images were used, with a balanced distribution across classes which helps in unbiased model training.</p>
-</section>
-<section id="exploratory-data-analysis-eda" class="level2">
-<h2 class="anchored" data-anchor-id="exploratory-data-analysis-eda">Exploratory Data Analysis (EDA)</h2>
-<p>The initial phase involved exploratory data analysis to understand the dataset’s composition. Key insights from EDA included: - <strong>Class Distribution</strong>: The dataset was evenly distributed among various flower types, which is crucial for balanced model training. <img src="https://studio.aneeshsathe.com/posts/3 Group Task Decomp/work_dir/distribution_plot.png" class="img-fluid" alt="Class Distribution"> - <strong>Sample Visualization</strong>: Displaying sample images from each category helped us understand the data better and set appropriate image processing techniques.</p>
-</section>
-<section id="model-development" class="level2">
-<h2 class="anchored" data-anchor-id="model-development">Model Development</h2>
-<p>We used a Convolutional Neural Network (CNN), known for its effectiveness in handling image data. The key steps in model development were: - <strong>Preprocessing</strong>: Images were resized and normalized to ensure uniformity. Data augmentation techniques were also applied to increase dataset robustness. - <strong>Model Architecture</strong>: The model consisted of multiple convolutional layers, activation functions, pooling layers, and fully connected layers to capture features at various granularities. - <strong>Training</strong>: The model was trained on the training dataset, while validation was performed simultaneously to monitor the model’s generalization capabilities.</p>
-</section>
-<section id="model-evaluation" class="level2">
-<h2 class="anchored" data-anchor-id="model-evaluation">Model Evaluation</h2>
-<p>After training, the model was evaluated using the test dataset. The results were encouraging: - <strong>Accuracy</strong>: Achieved an overall high accuracy, indicating that the model was able to generalize well on new data. - <strong>Confusion Matrix</strong>: Provided insight into specific classes where the model was confused, guiding potential improvements. - <strong>Classification Report</strong>: Detailed performance metrics for each class were analyzed to ensure that no particular class was underperforming.</p>
-</section>
-<section id="challenges-and-solutions" class="level2">
-<h2 class="anchored" data-anchor-id="challenges-and-solutions">Challenges and Solutions</h2>
-<p>One of the main challenges was overfitting, where the model performed well on the training data but not on unseen data. Solutions implemented to mitigate this included: - <strong>Data Augmentation</strong>: Increased the diversity of training data through transformations like rotation, scaling, and flipping. - <strong>Regularization Techniques</strong>: Added dropout layers to reduce the complexity of the model.</p>
-</section>
-<section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>Building an efficient image classifier for flower classification was an enriching experience that demonstrated the power of CNNs and deep learning. The TensorFlow and Keras libraries provided the necessary tools to preprocess data, construct and train the model, and evaluate its performance comprehensively.</p>
-<p>Future work might include exploring more sophisticated model architectures or applying transfer learning using pre-trained networks to further enhance the classifier’s performance.</p>
-<p>Thank you for taking the time to read about our journey in developing an image classifier for flower recognition. Stay tuned for more updates and breakthroughs in our AI endeavors!</p>
-<p><img src="https://studio.aneeshsathe.com/posts/3 Group Task Decomp/work_dir/confusion_matrix.png" class="img-fluid" alt="Confusion Matrix"> <em>Fig 1. Confusion Matrix of the model predictions.</em></p>
-<p><img src="https://studio.aneeshsathe.com/posts/3 Group Task Decomp/work_dir/samples_plot.png" class="img-fluid" alt="Sample Predictions"> <em>Fig 2. Sample predictions from the model.</em> ```</p>
-
-
-</section>
-</section>
-
- ]]></description>
-  <category>AI-agents</category>
-  <category>AI</category>
-  <category>analysis</category>
-  <guid>https://studio.aneeshsathe.com/posts/3 Group Task Decomp/Group_chat.html</guid>
-  <pubDate>Tue, 30 Apr 2024 07:00:00 GMT</pubDate>
-  <media:content url="https://studio.aneeshsathe.com/posts/3 Group Task Decomp/image_comittee.jpg" medium="image" type="image/jpeg"/>
-</item>
-<item>
-  <title>Task execution by a committee of AI agents</title>
-  <dc:creator>Aneesh Sathe</dc:creator>
   <link>https://studio.aneeshsathe.com/posts/3 Group Task Decomp/group_chat_task_decomp.html</link>
   <description><![CDATA[ 
 
@@ -7817,6 +7807,59 @@ Understanding and adapting to these changes is crucial for startups in the LDT s
   <guid>https://studio.aneeshsathe.com/posts/4 Agentic RAG/Agentic_RAG.html</guid>
   <pubDate>Tue, 30 Apr 2024 07:00:00 GMT</pubDate>
   <media:content url="https://studio.aneeshsathe.com/posts/4 Agentic RAG/image_agent.jpg" medium="image" type="image/jpeg"/>
+</item>
+<item>
+  <title>Task execution by a committee of AI agents</title>
+  <link>https://studio.aneeshsathe.com/posts/3 Group Task Decomp/Group_chat.html</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<section id="building-an-image-classifier-for-flower-recognition-a-journey-with-tensorflow-and-keras" class="level1">
+<h1>Building an Image Classifier for Flower Recognition: A Journey with TensorFlow and Keras</h1>
+<p><em>Note: Most of this post was generated by AI!</em></p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>In the ever-evolving field of artificial intelligence, image classification has taken a pivotal role in making sense of visual data. This project revolves around creating a model that can accurately classify images of flowers. We used TensorFlow and Keras, popular libraries in the deep learning community, to achieve this goal. This blog post outlines the steps taken from data analysis to model evaluation, the challenges we faced, and the solutions we implemented.</p>
+<p><img src="https://studio.aneeshsathe.com/posts/3 Group Task Decomp/work_dir/fl1.jpg" class="img-fluid"> <img src="https://studio.aneeshsathe.com/posts/3 Group Task Decomp/work_dir/fl2.jpg" class="img-fluid"> <img src="https://studio.aneeshsathe.com/posts/3 Group Task Decomp/work_dir/fl3.jpg" class="img-fluid"></p>
+</section>
+<section id="dataset-overview" class="level2">
+<h2 class="anchored" data-anchor-id="dataset-overview">Dataset Overview</h2>
+<p>The project utilized a publicly available flower dataset, which was structured into three main categories: training, validation, and test sets. Each category contained subfolders representing different flower classes such as roses, tulips, and daisies, among others. A total of over 3,000 images were used, with a balanced distribution across classes which helps in unbiased model training.</p>
+</section>
+<section id="exploratory-data-analysis-eda" class="level2">
+<h2 class="anchored" data-anchor-id="exploratory-data-analysis-eda">Exploratory Data Analysis (EDA)</h2>
+<p>The initial phase involved exploratory data analysis to understand the dataset’s composition. Key insights from EDA included: - <strong>Class Distribution</strong>: The dataset was evenly distributed among various flower types, which is crucial for balanced model training. <img src="https://studio.aneeshsathe.com/posts/3 Group Task Decomp/work_dir/distribution_plot.png" class="img-fluid" alt="Class Distribution"> - <strong>Sample Visualization</strong>: Displaying sample images from each category helped us understand the data better and set appropriate image processing techniques.</p>
+</section>
+<section id="model-development" class="level2">
+<h2 class="anchored" data-anchor-id="model-development">Model Development</h2>
+<p>We used a Convolutional Neural Network (CNN), known for its effectiveness in handling image data. The key steps in model development were: - <strong>Preprocessing</strong>: Images were resized and normalized to ensure uniformity. Data augmentation techniques were also applied to increase dataset robustness. - <strong>Model Architecture</strong>: The model consisted of multiple convolutional layers, activation functions, pooling layers, and fully connected layers to capture features at various granularities. - <strong>Training</strong>: The model was trained on the training dataset, while validation was performed simultaneously to monitor the model’s generalization capabilities.</p>
+</section>
+<section id="model-evaluation" class="level2">
+<h2 class="anchored" data-anchor-id="model-evaluation">Model Evaluation</h2>
+<p>After training, the model was evaluated using the test dataset. The results were encouraging: - <strong>Accuracy</strong>: Achieved an overall high accuracy, indicating that the model was able to generalize well on new data. - <strong>Confusion Matrix</strong>: Provided insight into specific classes where the model was confused, guiding potential improvements. - <strong>Classification Report</strong>: Detailed performance metrics for each class were analyzed to ensure that no particular class was underperforming.</p>
+</section>
+<section id="challenges-and-solutions" class="level2">
+<h2 class="anchored" data-anchor-id="challenges-and-solutions">Challenges and Solutions</h2>
+<p>One of the main challenges was overfitting, where the model performed well on the training data but not on unseen data. Solutions implemented to mitigate this included: - <strong>Data Augmentation</strong>: Increased the diversity of training data through transformations like rotation, scaling, and flipping. - <strong>Regularization Techniques</strong>: Added dropout layers to reduce the complexity of the model.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>Building an efficient image classifier for flower classification was an enriching experience that demonstrated the power of CNNs and deep learning. The TensorFlow and Keras libraries provided the necessary tools to preprocess data, construct and train the model, and evaluate its performance comprehensively.</p>
+<p>Future work might include exploring more sophisticated model architectures or applying transfer learning using pre-trained networks to further enhance the classifier’s performance.</p>
+<p>Thank you for taking the time to read about our journey in developing an image classifier for flower recognition. Stay tuned for more updates and breakthroughs in our AI endeavors!</p>
+<p><img src="https://studio.aneeshsathe.com/posts/3 Group Task Decomp/work_dir/confusion_matrix.png" class="img-fluid" alt="Confusion Matrix"> <em>Fig 1. Confusion Matrix of the model predictions.</em></p>
+<p><img src="https://studio.aneeshsathe.com/posts/3 Group Task Decomp/work_dir/samples_plot.png" class="img-fluid" alt="Sample Predictions"> <em>Fig 2. Sample predictions from the model.</em> ```</p>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <guid>https://studio.aneeshsathe.com/posts/3 Group Task Decomp/Group_chat.html</guid>
+  <pubDate>Tue, 30 Jun 2026 05:21:23 GMT</pubDate>
 </item>
 </channel>
 </rss>

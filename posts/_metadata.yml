@@ -6,3 +6,6 @@ freeze: true
 
 # Enable banner style title blocks
 title-block-banner: true
+
+# License (CC BY 4.0) — applies to all posts; required for Rogue Scholar DOIs
+license: "CC BY"

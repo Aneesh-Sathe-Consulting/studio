@@ -9,6 +9,7 @@ listing:
     title: "Studio"
     description: "AI studio explorations and experiments by Aneesh Sathe."
     language: "en-us"
+    type: full
   sort-ui: false
   filter-ui: false
 page-layout: full
